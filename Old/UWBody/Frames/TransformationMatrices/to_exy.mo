@@ -1,0 +1,10 @@
+within UWBody.Frames.TransformationMatrices;
+
+function to_exy "Map rotation object into e_x and e_y vectors of frame 2, resolved in frame 1"
+  extends Modelica.Icons.Function;
+  input TransformationMatrices.Orientation T "Orientation object to rotate frame 1 into frame 2";
+  output Real exy[3, 2] "= [e_x, e_y] where e_x and e_y are axes unit vectors of frame 2, resolved in frame 1";
+algorithm
+  exy := [T[1, :], T[2, :]];
+  annotation(Inline = true);
+end to_exy;

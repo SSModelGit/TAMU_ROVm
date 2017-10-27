@@ -1,0 +1,4 @@
+system(getCompiler() + " -c -o ExternalFunc1.o ExternalFunc1.c")
+system(getCompiler() + " -c -o ExternalFunc2.o ExternalFunc2.c")
+system("ar rcs libExternalFunc2.a ExternalFunc2.o")
+simulate(ExternalLibraries)
