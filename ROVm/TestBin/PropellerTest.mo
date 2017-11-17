@@ -1,11 +1,11 @@
 within ROVm.TestBin;
 
 model PropellerTest
-  Propeller.Examples.BasicProp basicProp(k = 1, r_Propeller = {0.01, 0, 0}, r_CM_Propeller = {0.005, 0, 0}, m_Propeller = 0.5, d_Propeller = 1000, A_Propeller = 0.2, c_d_Propeller = 100, n = {1, 0, 0}, R = 1, L = 1, r = 1) annotation(Placement(visible = true, transformation(origin = {-2.071, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Propeller.Examples.BasicProp basicProp(k = 1, m_Propeller = 5, A_Propeller = 0.2, n = {1, 0, 0}, R = 1, L = 1, r = 1) annotation(Placement(visible = true, transformation(origin = {-2.071, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-115, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Sources.ConstantVoltage constantVoltage(V = 9) annotation(Placement(visible = true, transformation(origin = {10, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody basicBody(c_d = 0, A = 0.25, m = 5, r_CM = {0, 0, 1}, density = 1000) annotation(Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  RBodyInFluid.Parts.BasicBody basicBody(c_d = 0, A = 0.25, m = 5, r_CM = {1, 0, 0}, density = 1000, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) annotation(Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanStep booleanStep(startTime = 5) annotation(Placement(visible = true, transformation(origin = {-55, 55}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(visible = true, transformation(origin = {50, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation

@@ -23,17 +23,25 @@ model BasicProp
   parameter Boolean animation = true;
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
-  parameter SI.Length r_Propeller[3] "length of overall propeller body, from frame_a to frame_b";
-  parameter SI.Length r_CM_Propeller[3] "r_CM from frame_a to center of mass of propeller";
+  parameter SI.Length r_CM_Propeller[3] = {0, 0, 0} "r_CM from frame_a to center of mass of propeller";
   parameter SI.Mass m_Propeller "Mass of propeller body";
-  parameter SI.Density d_Propeller "Average density of propeller body";
+  parameter SI.Density d_Propeller = 1000 "Average density of propeller body";
   parameter SI.Area A_Propeller "Overall cross sectional area effective in drag of propeller body";
-  parameter SI.DimensionlessRatio c_d_Propeller "Drag coefficient of the propeller body";
+  parameter SI.DimensionlessRatio c_d_Propeller = 0 "Drag coefficient of the propeller body";
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R) annotation(Placement(visible = true, transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Inductor inductor(L = L) annotation(Placement(visible = true, transformation(origin = {30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicPropMount basicPropMount(k = r, n = n) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.Rotor1D rotor1D(J = 2) annotation(Placement(visible = true, transformation(origin = {112.087, 93.163}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.Rotor1D propellerInertia(J = 2, n = n) "Inertia of part of propeller interacting with the water" annotation(Placement(visible = true, transformation(origin = {112.087, 93.163}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1D(n = n, phi0 = 0) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque thing(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_resolve) annotation(Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  RBodyInFluid.Parts.BasicBody propeller(c_d = c_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {53.155, -27.608}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
+  if u then
+    thing.force = mounting1D.housing.t * (1 / r);
+    thing.torque = zeros(3);
+  else
+    thing.force = zeros(3);
+    thing.torque = zeros(3);
+  end if;
   r_0 = frame_b.r_0;
   v_0 = der(r_0);
   a_0 = der(v_0);
@@ -43,9 +51,12 @@ equation
   connect(idealCommutingSwitch.n2, resistor.p) annotation(Line(visible = true, origin = {-50, 80}, points = {{-10, 0}, {10, 0}}, color = {10, 90, 224}));
   connect(resistor.n, inductor.p) annotation(Line(visible = true, origin = {-0, 80}, points = {{-20, 0}, {20, 0}}, color = {10, 90, 224}));
   connect(inductor.n, emf.p) annotation(Line(visible = true, origin = {50, 80}, points = {{-10, 0}, {10, 0}}, color = {10, 90, 224}));
-  connect(emf.support, basicPropMount.flange_b) annotation(Line(visible = true, origin = {49.998, 23.333}, points = {{20.002, 46.667}, {20.002, -23.333}, {-40.005, -23.333}}));
-  connect(basicPropMount.frame_a, frame_b) annotation(Line(visible = true, origin = {0, -57.414}, points = {{0, 47.586}, {0, -47.586}}, color = {95, 95, 95}));
-  connect(rotor1D.flange_a, emf.flange) annotation(Line(visible = true, origin = {80.696, 92.109}, points = {{21.391, 1.054}, {-10.696, 1.054}, {-10.696, -2.109}}, color = {64, 64, 64}));
-  connect(rotor1D.frame_a, frame_b) annotation(Line(visible = true, origin = {56.043, -48.459}, points = {{56.043, 131.622}, {56.043, -37.541}, {-56.043, -37.541}, {-56.043, -56.541}}, color = {95, 95, 95}));
+  connect(propellerInertia.flange_a, emf.flange) annotation(Line(visible = true, origin = {80.696, 92.109}, points = {{21.391, 1.054}, {-10.696, 1.054}, {-10.696, -2.109}}, color = {64, 64, 64}));
+  connect(mounting1D.flange_b, emf.support) annotation(Line(visible = true, origin = {50, 23.333}, points = {{-40, -23.333}, {20, -23.333}, {20, 46.667}}, color = {64, 64, 64}));
+  connect(mounting1D.frame_a, propeller.frame_a) annotation(Line(visible = true, origin = {14.385, -21.739}, points = {{-14.385, 11.739}, {-14.385, -5.869}, {28.77, -5.869}}, color = {95, 95, 95}));
+  connect(propellerInertia.frame_a, mounting1D.frame_a) annotation(Line(visible = true, origin = {56.044, 11.784}, points = {{56.044, 71.379}, {56.044, -24.797}, {-56.044, -24.797}, {-56.044, -21.784}}, color = {95, 95, 95}));
+  connect(thing.frame_b, propeller.frame_a) annotation(Line(visible = true, origin = {23.36, -43.804}, points = {{-53.36, -16.196}, {16.782, -16.196}, {16.782, 16.196}, {19.795, 16.196}}, color = {95, 95, 95}));
+  connect(thing.frame_resolve, mounting1D.frame_a) annotation(Line(visible = true, origin = {-20, -21.506}, points = {{-20, -28.494}, {-20, 8.494}, {20, 8.494}, {20, 11.506}}, color = {95, 95, 95}));
+  connect(propeller.frame_a, frame_b) annotation(Line(visible = true, origin = {14.385, -53.405}, points = {{28.77, 25.797}, {-14.385, 25.797}, {-14.385, -51.595}}, color = {95, 95, 95}));
   annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {50, 0.721}, fillPattern = FillPattern.Solid, points = {{50, -0.721}, {-0, 12.163}, {-50, -0.721}, {-0, -10.721}}), Polygon(visible = true, origin = {-45, -45}, fillPattern = FillPattern.Solid, points = {{45, 45}, {15, -5}, {-55, -55}, {-5, 15}}), Polygon(visible = true, origin = {-45, 45}, fillPattern = FillPattern.Solid, points = {{45, -45}, {15, 5}, {-55, 55}, {-5, -15}}), Line(visible = true, origin = {-66, -7.942}, rotation = -720, points = {{66, 80}, {66, -70}}, color = {0, 0, 255}, arrow = {Arrow.None, Arrow.Filled}, arrowSize = 30)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end BasicProp;

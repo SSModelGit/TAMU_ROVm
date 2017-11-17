@@ -73,6 +73,6 @@ equation
   thrustMag5.u = thrustMag[5] * verticalPropVector;
   thrustMag6.u = thrustMag[6] * verticalPropVector;
   connect(absoluteAngularVelocity.frame_a, basicROV.frame_a) annotation(Line(visible = true, origin = {26.813, -38.634}, points = {{33.187, -46.366}, {20.122, -46.366}, {20.122, -29.353}, {-9.903, -29.353}, {-9.903, 51.403}, {-26.813, 51.403}, {-26.813, 48.634}}, color = {95, 95, 95}));
-  annotation(experiment(Interval = 0.001, __Wolfram_Algorithm = "rk4"), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   annotation(IncludeDirectory = "modelica://ROVm/Resources/Include", Include = "#include \"AssemBROV2R1.stl\" ");
+  annotation(experiment(Interval = 0.001, __Wolfram_Algorithm = "rk4"), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end BasicTryROV;
