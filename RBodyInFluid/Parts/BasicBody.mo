@@ -8,7 +8,7 @@ model BasicBody
   parameter Modelica.SIunits.Area A "Cross sectional area of the object" annotation(Dialog);
   SI.Force f_d[3] "Drag force";
   Modelica.SIunits.Acceleration b_f[3] "Buoyant acceleration within fluid field";
-  Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque field "Overall external force due to fields" annotation(Placement(visible = true, transformation(origin = {-51.931, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque field(animation = false) "Overall external force due to fields" annotation(Placement(visible = true, transformation(origin = {-51.931, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Parameters for the Body object
   SI.Position r_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Position vector from origin of world frame to origin of frame_a" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
   SI.Velocity v_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Absolute velocity of frame_a, resolved in world frame (= der(r_0))" annotation(Dialog(tab = "Initialization", showStartAttribute = true));

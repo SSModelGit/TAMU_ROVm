@@ -23,18 +23,18 @@ model BottomPlate
   parameter Boolean animation = true;
   parameter Boolean animationFT = true;
   parameter SI.Density d_plate = 2700;
-  parameter SI.Length r_bP_Long[3] = {0.6, 0, 0};
+  parameter SI.Length r_bP_Long[3] = {0, 0, 0.6};
   parameter SI.Length r_CM_bP_Long[3] = r_bP_Long / 2;
   parameter SI.Mass m_bP_Long = 0.25;
   parameter SI.Area A_bP_Long = 0.0009;
   parameter SI.DimensionlessRatio c_d_bP_Long = 1;
   parameter SI.DimensionlessRatio c_d_bP_Short = 1;
+  parameter Real innerScaleFactor = 2;
+  parameter SI.Length r_bP_Short[3] = {0.3, 0, 0};
   parameter Modelica.Mechanics.MultiBody.Types.Axis innerRotationAxis "Think wisely, grasshopper.";
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_bP_Short / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {25, 95}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation6(r = r_bP_Long / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-67.641, 2.416}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRotation(angle = 90, n = innerRotationAxis, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-35, 2.416}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation7(r = -1 * r_bP_Long / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {15, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedRotation1(n = innerRotationAxis, angle = -90, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-17.946, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 protected
   // Ballast physical characeristics
   parameter Modelica.SIunits.Mass m_ballast = 200;
@@ -49,10 +49,9 @@ protected
   parameter SI.Length ballastPosition4[3] = r_bP_Long * 3 / 4;
   parameter SI.Length ballastPosition5[3] = r_bP_Long / 4;
   // Inner connection (bottomPlateC) characteristics
-  parameter SI.Area A_bP_Short = A_bP_Long / 3;
-  parameter SI.Mass m_bP_Short = m_bP_Long / 3;
-  parameter SI.Length r_CM_bP_Short[3] = r_CM_bP_Long / 3;
-  parameter SI.Length r_bP_Short[3] = r_bP_Long / 3;
+  parameter SI.Area A_bP_Short = A_bP_Long / innerScaleFactor;
+  parameter SI.Mass m_bP_Short = m_bP_Long / innerScaleFactor;
+  parameter SI.Length r_CM_bP_Short[3] = r_bP_Short / 2;
 equation
   connect(fixedTranslation1.frame_b, ballast1.frame_a) annotation(Line(visible = true, origin = {-60.766, 32.929}, points = {{14.234, 0}, {-14.234, -0}}, color = {95, 95, 95}));
   connect(fixedTranslation2.frame_b, ballast2.frame_a) annotation(Line(visible = true, origin = {50, 32.929}, points = {{-15, 0}, {15, 0}}, color = {95, 95, 95}));
@@ -70,11 +69,9 @@ equation
   connect(fixedTranslation3.frame_a, bottomPlateC.frame_a) annotation(Line(visible = true, origin = {56.888, 90.736}, points = {{18.112, 4.264}, {15.112, 4.264}, {15.112, -8.638}, {-17.116, -8.638}, {-17.116, 4.375}, {-14.103, 4.375}}, color = {95, 95, 95}));
   connect(bottomPlateC.frame_a, fixedTranslation.frame_a) annotation(Line(visible = true, origin = {38.446, 95.055}, points = {{4.339, 0.056}, {-0.446, 0.056}, {-0.446, -0.055}, {-3.446, -0.055}}, color = {95, 95, 95}));
   connect(fixedTranslation.frame_b, frame_bat) annotation(Line(visible = true, origin = {10, 101.667}, points = {{5, -6.667}, {5, 3.333}, {-10, 3.333}}, color = {95, 95, 95}));
-  connect(fixedTranslation6.frame_b, fixedRotation.frame_a) annotation(Line(visible = true, origin = {-51.321, 2.416}, points = {{-6.321, 0}, {6.321, 0}}, color = {95, 95, 95}));
-  connect(fixedTranslation7.frame_b, fixedRotation1.frame_a) annotation(Line(visible = true, origin = {-1.473, -20}, points = {{6.473, 0}, {-6.473, 0}}, color = {95, 95, 95}));
   connect(bottomPlateU.frame_a, fixedTranslation6.frame_a) annotation(Line(visible = true, origin = {-49.778, 29.789}, points = {{34.778, 37.162}, {31.765, 37.162}, {31.765, -9.789}, {-35.222, -9.789}, {-35.222, -27.373}, {-27.864, -27.373}}, color = {95, 95, 95}));
   connect(bottomPlateB.frame_b, fixedTranslation7.frame_a) annotation(Line(visible = true, origin = {54.609, -50}, points = {{-61.174, -30}, {45.391, -30}, {45.391, 30}, {-29.609, 30}}, color = {95, 95, 95}));
-  connect(bottomPlateC.frame_a, fixedRotation.frame_b) annotation(Line(visible = true, origin = {46.222, 49.176}, points = {{-3.437, 45.935}, {-6.449, 45.935}, {-6.449, 0.824}, {43.778, 0.824}, {43.778, -46.76}, {-71.222, -46.76}}, color = {95, 95, 95}));
-  connect(bottomPlateC.frame_b, fixedRotation1.frame_b) annotation(Line(visible = true, origin = {26.671, 33.736}, points = {{36.114, 61.375}, {39.226, 61.375}, {39.226, 48.745}, {13.329, 48.745}, {13.329, 16.264}, {63.329, 16.264}, {63.329, -31.32}, {-44.962, -31.32}, {-44.962, -41.328}, {-61.671, -41.328}, {-61.671, -53.736}, {-54.617, -53.736}}, color = {95, 95, 95}));
+  connect(fixedTranslation7.frame_b, bottomPlateC.frame_a) annotation(Line(visible = true, origin = {18.869, 15.022}, points = {{-13.869, -35.022}, {-16.982, -35.022}, {-16.982, -5.022}, {23.916, -5.022}, {23.916, 80.089}}, color = {95, 95, 95}));
+  connect(fixedTranslation6.frame_b, bottomPlateC.frame_b) annotation(Line(visible = true, origin = {32.863, 48.764}, points = {{-90.504, -46.348}, {30.291, -46.348}, {30.291, 46.348}, {29.922, 46.348}}, color = {95, 95, 95}));
   annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {-0.184, 58.875}, fillColor = {0, 0, 255}, fillPattern = FillPattern.Vertical, points = {{-59.816, 18.43}, {-64.972, 13.276}, {-64.972, -11.756}, {-59.816, -18.875}, {60.184, -18.875}, {64.604, -11.756}, {64.604, 11.125}, {60.184, 18.43}}), Polygon(visible = true, origin = {0.184, -59.778}, fillColor = {0, 0, 255}, fillPattern = FillPattern.Vertical, points = {{-59.816, 18.43}, {-64.972, 13.276}, {-64.972, -11.756}, {-59.816, -18.875}, {60.184, -18.875}, {64.604, -11.756}, {64.604, 11.125}, {60.184, 18.43}}), Polygon(visible = true, origin = {0, -0.399}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, points = {{-20, 30.399}, {-20, -29.601}, {-30, -41.198}, {30, -41.198}, {20, -29.601}, {20, 30.399}, {30, 40.399}, {-30, 40.399}}), Line(visible = true, origin = {-80.249, 64.42}, points = {{14.357, 0}, {-14.357, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {-80.433, -64.788}, points = {{14.909, 0}, {-14.909, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {-77.119, -78.409}, points = {{17.119, 0}, {-17.119, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {-77.671, 77.672}, points = {{17.671, 0}, {-17.671, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {78.591, 77.672}, points = {{-18.591, 0}, {18.591, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {79.881, 63.684}, points = {{-15.093, 0}, {15.093, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {78.039, -78.409}, points = {{-18.039, 0}, {18.039, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {80.065, -64.788}, points = {{-15.277, 0}, {15.277, 0}}, color = {153, 153, 153}, thickness = 5), Line(visible = true, origin = {0, 80.617}, points = {{0, -2.945}, {0, 2.945}}, thickness = 1)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end BottomPlate;

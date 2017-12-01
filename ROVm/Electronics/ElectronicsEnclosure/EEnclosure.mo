@@ -5,14 +5,14 @@ model EEnclosure
   Modelica.Electrical.Analog.Interfaces.PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lb annotation(Placement(visible = true, transformation(origin = {-149, -61}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, -70}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody eEnclosure(A = A_EEnclosure, animation = animation, r_CM = r_CM_EEnclosure, m = m_EEnclosure, c_d = c_d_EEnclosure, density = d_EEnclosure) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  RBodyInFluid.Parts.BasicBodyShape eEnclosure(A = A_EEnclosure, animation = animation, r_CM = r_CM_EEnclosure, m = m_EEnclosure, c_d = c_d_EEnclosure, density = d_EEnclosure, r = r_CM_EEnclosure * 2) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R_EEnclosure) annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // frames to TopPieces
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lf annotation(Placement(visible = true, transformation(origin = {-147.707, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_rf annotation(Placement(visible = true, transformation(origin = {149, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {100, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_rb annotation(Placement(visible = true, transformation(origin = {149, -59}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {100, -70}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = lf_pos) annotation(Placement(visible = true, transformation(origin = {-105, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation1(r = lb_pos) annotation(Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = lf_pos) annotation(Placement(visible = true, transformation(origin = {-105, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation1(r = lb_pos) annotation(Placement(visible = true, transformation(origin = {-110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation2(r = rf_pos) annotation(Placement(visible = true, transformation(origin = {95, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation3(r = rb_pos) annotation(Placement(visible = true, transformation(origin = {88.348, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // movement vectors
@@ -40,13 +40,13 @@ equation
   a_0 = der(v_0);
   connect(resistor.n, pin_n) annotation(Line(visible = true, origin = {55, 100}, points = {{-45, 0}, {45, 0}}, color = {10, 90, 224}));
   connect(resistor.p, pin_p) annotation(Line(visible = true, origin = {-55, 100}, points = {{45, 0}, {-45, 0}}, color = {10, 90, 224}));
-  connect(frame_lf, fixedTranslation.frame_a) annotation(Line(visible = true, origin = {-131.353, 60}, points = {{-16.353, 0}, {16.353, 0}}, color = {95, 95, 95}));
-  connect(frame_lb, fixedTranslation1.frame_a) annotation(Line(visible = true, origin = {-128.75, -60.5}, points = {{-20.25, -0.5}, {5.75, -0.5}, {5.75, 0.5}, {8.75, 0.5}}, color = {95, 95, 95}));
   connect(frame_rb, fixedTranslation3.frame_b) annotation(Line(visible = true, origin = {112.567, -59.5}, points = {{36.433, 0.5}, {-11.107, 0.5}, {-11.107, -0.5}, {-14.219, -0.5}}, color = {95, 95, 95}));
   connect(frame_rf, fixedTranslation2.frame_b) annotation(Line(visible = true, origin = {127, 60}, points = {{22, 0}, {-22, 0}}, color = {95, 95, 95}));
-  connect(fixedTranslation.frame_b, eEnclosure.frame_a) annotation(Line(visible = true, origin = {-31.03, 30}, points = {{-63.969, 30}, {20.319, 30}, {20.319, -30}, {23.331, -30}}, color = {95, 95, 95}));
   connect(fixedTranslation2.frame_a, eEnclosure.frame_a) annotation(Line(visible = true, origin = {13.97, 30}, points = {{71.031, 30}, {-24.681, 30}, {-24.681, -30}, {-21.669, -30}}, color = {95, 95, 95}));
   connect(fixedTranslation3.frame_a, eEnclosure.frame_a) annotation(Line(visible = true, origin = {12.306, -30}, points = {{66.041, -30}, {-23.018, -30}, {-23.018, 30}, {-20.005, 30}}, color = {95, 95, 95}));
-  connect(fixedTranslation1.frame_b, eEnclosure.frame_a) annotation(Line(visible = true, origin = {-32.281, -30}, points = {{-67.719, -30}, {21.569, -30}, {21.569, 30}, {24.582, 30}}, color = {95, 95, 95}));
+  connect(frame_lf, fixedTranslation.frame_b) annotation(Line(visible = true, origin = {-131.353, 60}, points = {{-16.353, 0}, {16.353, 0}}, color = {95, 95, 95}));
+  connect(frame_lb, fixedTranslation1.frame_b) annotation(Line(visible = true, origin = {-128.806, -60.5}, points = {{-20.194, -0.5}, {5.694, -0.5}, {5.694, 0.5}, {8.806, 0.5}}, color = {95, 95, 95}));
+  connect(fixedTranslation1.frame_a, eEnclosure.frame_a) annotation(Line(visible = true, origin = {-32.281, -30}, points = {{-67.719, -30}, {21.569, -30}, {21.569, 30}, {24.582, 30}}, color = {95, 95, 95}));
+  connect(fixedTranslation.frame_a, eEnclosure.frame_a) annotation(Line(visible = true, origin = {-31.03, 30}, points = {{-63.969, 30}, {20.319, 30}, {20.319, -30}, {23.331, -30}}, color = {95, 95, 95}));
   annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(visible = true, origin = {0, -10}, fillColor = {0, 170, 255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-90, -60}, {90, 60}}), Line(visible = true, origin = {-36.667, 85.318}, points = {{-53.333, 14.682}, {26.667, 14.682}, {26.667, -29.364}}, thickness = 2.5), Line(visible = true, origin = {36.667, 85.441}, points = {{53.333, 14.559}, {-26.667, 14.559}, {-26.667, -29.119}}, thickness = 2.5)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end EEnclosure;
