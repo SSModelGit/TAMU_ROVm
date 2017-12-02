@@ -13,7 +13,7 @@ model TopPiece
   SI.Acceleration a_0[3](start = {0, 0, 0}) "Absolute acceleration of frame_a resolved in world frame (= der(v_0))" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
   parameter Boolean animation = true;
   parameter Boolean animationFT = false;
-  parameter SI.Density d_plate = 2700;
+  parameter SI.Density d_plate = 970;
   parameter SI.Length r_TP[3] = {0, 0, 0.15};
   parameter SI.Length TP_Width[3] = {0.3, 0, 0};
   parameter SI.Length r_CM_TP[3] = r_TP / 2;
@@ -27,8 +27,8 @@ model TopPiece
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_CM_TP, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-110, -37.272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
   parameter SI.Length r_Fairing[3] = r_TP;
-  parameter SI.Density d_Fairing = 0.7;
-  parameter SI.Mass m_Fairing = 0.5;
+  parameter SI.Density d_Fairing = 288;
+  parameter SI.Mass m_Fairing(displayUnit = "g") = 0.05;
   parameter SI.Area A_Fairing = 0.002;
 equation
   r_0 = frame_SF.r_0;

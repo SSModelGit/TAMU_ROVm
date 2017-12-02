@@ -2,7 +2,7 @@ within ROVm.FrameBody.SideFrame;
 
 model SidePlate
   import SI = Modelica.SIunits;
-  RBodyInFluid.Parts.BasicBodyShape sidePlate(r_CM = r_CM_SP, r = r_SP, animation = animation, m = m_SP, density = d_plate, c_d = c_d_SP, A = A_SP) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  RBodyInFluid.Parts.BasicBodyShape sidePlate(r_CM = r_CM_SP, r = r_SP, animation = animation, m = m_SP, density = d_plate, c_d = c_d_SP, A = A_SP, color = color) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_frontU annotation(Placement(visible = true, transformation(origin = {-146, 86}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-90, 58.159}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_backU annotation(Placement(visible = true, transformation(origin = {146, 86}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {90, 56}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_frontL annotation(Placement(visible = true, transformation(origin = {-146, -80}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-74, -62.226}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -25,7 +25,7 @@ model SidePlate
   parameter Boolean secondLumen = true "true = Use of second lumen, position = -lumenUPos";
   parameter SI.Length r_SP[3] = {1, 0, 0} "Total length of Side Plate, from frame_a to frame_b";
   parameter SI.Length r_CM_SP[3] = r_SP / 2 "Length from frame_a to CM of Side Plate";
-  parameter SI.Density d_plate = 2700 "density of side plate";
+  parameter SI.Density d_plate = 970 "density of side plate";
   parameter SI.Mass m_SP = 2;
   parameter SI.Area A_SP = 0.5;
   parameter SI.DimensionlessRatio c_d_SP = 1;
@@ -33,6 +33,7 @@ model SidePlate
   parameter SI.Length BP_Pos[3] = {0.15, 0, 0} "Position of back side bottom plate connection point, from center of mass of side plate";
   parameter SI.Length propVPos[3] = {0.5, 0.2, 0} "Position of vertical propeller from frame_a";
   parameter SI.Length lumenUPos[3] = {0, 0.3, 0} "Position of upper (or only) lumen from frame_a";
+  input Modelica.Mechanics.MultiBody.Types.Color color = Modelica.Mechanics.MultiBody.Types.Defaults.BodyColor "Color of shape" annotation(Dialog(colorSelector = true, tab = "Animation", group = "if animation = true", enable = animation));
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
 protected
   parameter SI.Length lumenLPos[3] = -lumenUPos if secondLumen;
@@ -45,7 +46,7 @@ equation
   v_0 = der(r_0);
   a_0 = der(v_0);
   connect(lumenL, lumenLPosition.frame_a) annotation(Line(visible = true, origin = {114.126, 105.546}, points = {{5.874, 1.093}, {5.874, -0.546}, {-11.747, -0.546}}, color = {95, 95, 95}));
-  connect(lumenLPosition.frame_b, sidePlate.frame_a) annotation(Line(visible = true, origin = {21.041, 53.333}, points = {{61.339, 51.667}, {18.959, 51.667}, {18.959, 1.667}, {-34.109, 1.667}, {-34.109, -53.333}, {-31.041, -53.333}}, color = {95, 95, 95}));
+  connect(lumenLPosition.frame_b, sidePlate.frame_a) annotation(Line(visible = true, origin = {21.041, 53.333}, points = {{61.338, 51.667}, {18.959, 51.667}, {18.959, 1.667}, {-34.109, 1.667}, {-34.109, -53.333}, {-31.041, -53.333}}, color = {95, 95, 95}));
   connect(frontUPosition.frame_b, frame_frontU) annotation(Line(visible = true, origin = {-139, 62}, points = {{14, -12}, {-7, -12}, {-7, 24}}, color = {95, 95, 95}));
   connect(frontUPosition.frame_a, sidePlate.frame_a) annotation(Line(visible = true, origin = {-35.256, 25}, points = {{-69.744, 25}, {22.244, 25}, {22.244, -25}, {25.256, -25}}, color = {95, 95, 95}));
   connect(frontLPosition.frame_b, frame_frontL) annotation(Line(visible = true, origin = {-128, -80}, points = {{18, 0}, {-18, 0}}, color = {95, 95, 95}));

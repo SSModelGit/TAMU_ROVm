@@ -16,7 +16,7 @@ model Battery
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter SI.Length r_CM_Battery[3] "r_CM from frame_a to center of mass of overall battery enclosure";
-  parameter SI.Mass m_Battery "Mass of overall battery enclosure";
+  parameter SI.Mass m_Battery = 1.152 "Mass of overall battery enclosure";
   parameter SI.Density d_Battery "Density of battery & battery enclosure";
   parameter SI.Area A_Battery "Overall cross sectional area of the battery enclosure";
   parameter SI.DimensionlessRatio c_d_Battery "Drag coefficient of the battery enclosure";

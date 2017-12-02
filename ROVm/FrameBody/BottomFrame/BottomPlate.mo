@@ -22,7 +22,7 @@ model BottomPlate
   RBodyInFluid.Parts.BasicBodyShape bottomPlateC(density = d_plate, r = r_bP_Short, r_CM = r_CM_bP_Short, m = m_bP_Short, A = A_bP_Short, c_d = c_d_bP_Short, animation = animation) annotation(Placement(visible = true, transformation(origin = {52.785, 95.111}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter Boolean animation = true;
   parameter Boolean animationFT = true;
-  parameter SI.Density d_plate = 2700;
+  parameter SI.Density d_plate = 970;
   parameter SI.Length r_bP_Long[3] = {0, 0, 0.6};
   parameter SI.Length r_CM_bP_Long[3] = r_bP_Long / 2;
   parameter SI.Mass m_bP_Long = 0.25;
@@ -37,7 +37,7 @@ model BottomPlate
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation7(r = -1 * r_bP_Long / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {15, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 protected
   // Ballast physical characeristics
-  parameter Modelica.SIunits.Mass m_ballast = 200;
+  parameter Modelica.SIunits.Mass m_ballast(displayUnit = "g") = 0.2;
   parameter Modelica.SIunits.Length r_CM_ballast[3] = {0.001, 0, 0};
   parameter Modelica.SIunits.Density d_ballast = 7700;
   parameter Modelica.SIunits.DimensionlessRatio c_d_ballast = 1;
