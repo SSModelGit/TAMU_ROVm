@@ -16,6 +16,7 @@ model BasicProp
   parameter SI.ElectricalTorqueConstant k(start = 1) "Transformation coefficient" annotation(Dialog(tab = "Motor Specific"));
   parameter SI.Resistance R(start = 1) "Resistance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
   parameter SI.Inductance L(start = 1) "Inductance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
+  parameter Real direction = 1 "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
   // parameter for propeller mount
   parameter SI.Length r "Characteristic length of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
@@ -36,7 +37,7 @@ model BasicProp
   RBodyInFluid.Parts.BasicBody propeller(c_d = c_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {53.155, -27.608}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   if u then
-    thing.force = mounting1D.housing.t * (1 / r);
+    thing.force = mounting1D.housing.t * (1 / r) * direction;
     thing.torque = zeros(3);
   else
     thing.force = zeros(3);
