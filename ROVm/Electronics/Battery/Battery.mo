@@ -15,13 +15,13 @@ model Battery
   parameter Boolean animation = true;
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
-  parameter SI.Length r_CM_Battery[3] "r_CM from frame_a to center of mass of overall battery enclosure";
-  parameter SI.Mass m_Battery = 1.152 "Mass of overall battery enclosure";
-  parameter SI.Density d_Battery "Density of battery & battery enclosure";
+  parameter SI.Length r_CM_Battery[3] = {0, 0.1, 0} "r_CM from frame_a to center of mass of overall battery enclosure";
+  parameter SI.Mass m_Battery = 1.452 "Mass of overall battery enclosure";
+  parameter SI.Density d_Battery = 725.6 "Density of battery & battery enclosure";
   parameter SI.Area A_Battery "Overall cross sectional area of the battery enclosure";
   parameter SI.DimensionlessRatio c_d_Battery "Drag coefficient of the battery enclosure";
   parameter SI.Voltage V_Battery "Starting voltage of battery" annotation(Dialog(tab = "Initialization"));
-  parameter SI.Capacitance C_Battery "Capacitance of battery";
+  parameter SI.Capacitance C_Battery = 18 "Capacitance of battery";
   Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(visible = true, transformation(origin = {40, 76.91}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   r_0 = frame_a.r_0;
