@@ -16,7 +16,7 @@ model BasicTryROV
   Modelica.Blocks.Math.MatrixGain thrustMag6(K = diagonal({1, -1, 1})) annotation(Placement(visible = true, transformation(origin = {60, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForce buoyancyForce annotation(Placement(visible = true, transformation(origin = {-7.116, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque fluidDragForce(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(Placement(visible = true, transformation(origin = {-5, -77.987}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.BodyShape basicROV(m = 5, r_CM = {0, -0.05, 0}, shapeType = "modelica://ROVm/Resources/AssemBROV2R1.stl", r = {0, -0.1, 0}) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)), Include = "#include \"AssemBROV2R1.stl\" ", IncludeDirectory = "modelica://ROVm/Resources/Include");
+  Modelica.Mechanics.MultiBody.Parts.BodyShape basicROV(m = 5, r_CM = {0, -0.05, 0}, shapeType = "modelica://ROVm/Resources/AssemBROV2R1.stl", r = {0, -0.1, 0}) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Mechanics.MultiBody.Sensors.AbsoluteVelocity absoluteVelocity(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_a) annotation(Placement(visible = true, transformation(origin = {30, -85}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.SIunits.Velocity unitV[3];
   Modelica.SIunits.Velocity scalarV;
@@ -74,5 +74,4 @@ equation
   thrustMag6.u = thrustMag[6] * verticalPropVector;
   connect(absoluteAngularVelocity.frame_a, basicROV.frame_a) annotation(Line(visible = true, origin = {26.813, -38.634}, points = {{33.187, -46.366}, {20.122, -46.366}, {20.122, -29.353}, {-9.903, -29.353}, {-9.903, 51.403}, {-26.813, 51.403}, {-26.813, 48.634}}, color = {95, 95, 95}));
   annotation(experiment(Interval = 0.001, __Wolfram_Algorithm = "rk4"), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
-  annotation(IncludeDirectory = "modelica://ROVm/Resources/Include", Include = "#include \"AssemBROV2R1.stl\" ");
 end BasicTryROV;

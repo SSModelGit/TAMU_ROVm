@@ -13,7 +13,8 @@ model BasicProp
   parameter SI.Inductance L(start = 1) = 0.077 "Inductance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
   parameter Real direction = 1 "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
   // parameter for propeller mount
-  parameter SI.Length r "Characteristic length of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
+  parameter SI.Length r "Propeller shape coefficient, for torque-to-force power conversion" annotation(Dialog(tab = "Propeller Body Specific"));
+  parameter Real eta = 0.85 "Efficiency coefficient of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
   // parameters for propeller body
   parameter Boolean animation = true;
@@ -35,7 +36,7 @@ model BasicProp
   Modelica.Electrical.Analog.Sources.SignalVoltage signalVoltage annotation(Placement(visible = true, transformation(origin = {-95, 55}, extent = {{-10, -10}, {10, 10}}, rotation = -270)));
   Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(visible = true, transformation(origin = {-115, 81.742}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  thrust.force = mounting1D.housing.t * (1 / r) * direction;
+  thrust.force = mounting1D.housing.t * (1 / r) * eta * direction;
   thrust.torque = zeros(3);
   r_0 = frame_b.r_0;
   v_0 = der(r_0);
