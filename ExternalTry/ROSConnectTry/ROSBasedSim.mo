@@ -1,8 +1,8 @@
 within ExternalTry.ROSConnectTry;
 
 model ROSBasedSim
-  ROSBasedBlock rOSBasedBlock(samplePeriod = 0.1, portNumber = 9091) annotation(Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod = 0.1) annotation(Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  ROSBasedBlock rOSBasedBlock(samplePeriod = 0.02, portNumber = 9090) annotation(Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod = 0.02) annotation(Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Translational.Components.SpringDamper springDamper(d = 1, c = 1) annotation(Placement(visible = true, transformation(origin = {-65, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Translational.Components.Mass mass(L = 0, m = 1, s.fixed = true, s.start = 1, stateSelect = StateSelect.default) annotation(Placement(visible = true, transformation(origin = {-38.139, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Translational.Components.Fixed fixed(s0 = 0) annotation(Placement(visible = true, transformation(origin = {-95, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
