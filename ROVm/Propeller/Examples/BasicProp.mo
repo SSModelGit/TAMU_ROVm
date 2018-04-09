@@ -22,12 +22,13 @@ model BasicProp
   parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter SI.Length r_CM_Propeller[3] = {0, 0, 0} "r_CM from frame_a to center of mass of propeller";
   parameter SI.Mass m_Propeller "Mass of propeller body";
+  parameter SI.Inertia j_Propeller = 2 "Inertia of propeller body";
   parameter SI.Density d_Propeller = 1000 "Average density of propeller body";
   parameter SI.Area A_Propeller "Overall cross sectional area effective in drag of propeller body";
   parameter SI.DimensionlessRatio c_d_Propeller = 0 "Drag coefficient of the propeller body";
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R) annotation(Placement(visible = true, transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Inductor inductor(L = L) annotation(Placement(visible = true, transformation(origin = {16.886, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.Rotor1D propellerInertia(J = 2, n = n) "Inertia of part of propeller interacting with the water" annotation(Placement(visible = true, transformation(origin = {112.087, 93.163}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.Rotor1D propellerInertia(J = j_Propeller, n = n) "Inertia of part of propeller interacting with the water" annotation(Placement(visible = true, transformation(origin = {112.087, 93.163}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1D(n = n, phi0 = 0) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque thrust(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_resolve) annotation(Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   RBodyInFluid.Parts.BasicBody propeller(c_d = c_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {53.155, -27.608}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

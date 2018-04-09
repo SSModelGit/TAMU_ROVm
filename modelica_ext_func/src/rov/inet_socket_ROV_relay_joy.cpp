@@ -1,5 +1,7 @@
 #include <ros/ros.h>
 #include <modelica_ext_func/ModROV.h>
+#include <std_msgs/String.h>
+#include <sstream>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
@@ -8,6 +10,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <netinet/in.h>
+
+ros::Publisher pub;
 
 void commaconcatanater(char *s, double *dat)
 {
@@ -63,6 +67,10 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "inet_socket_ROV_relay_joy");
 
     ros::NodeHandle nh;
+    pub = nh.advertise<std_msgs::String>("request_channel", 1);
+    std_msgs::String msg;
+    int count = 0;
+
     ros::Subscriber sub = nh.subscribe("control_values", 1, storeCallback);
 
     int sockfd, newsockfd, portno;
@@ -120,6 +128,12 @@ int main(int argc, char **argv)
         }
 
         close(newsockfd);
+
+        count++;
+        std::stringstream ss;
+        ss << count;
+        msg.data = ss.str();
+        pub.publish(msg);
         
         ros::spinOnce();
     }

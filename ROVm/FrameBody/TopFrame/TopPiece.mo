@@ -24,12 +24,11 @@ model TopPiece
   parameter SI.DimensionlessRatio c_d_Fairing = 1;
   parameter SI.Length thickness[3] = {0, 0.05, 0};
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
-  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_CM_TP, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-110, -37.272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-protected
   parameter SI.Length r_Fairing[3] = r_TP;
   parameter SI.Density d_Fairing = 288;
   parameter SI.Mass m_Fairing(displayUnit = "g") = 0.05;
   parameter SI.Area A_Fairing = 0.002;
+  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_CM_TP, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-110, -37.272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   r_0 = frame_SF.r_0;
   v_0 = der(r_0);

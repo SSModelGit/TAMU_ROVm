@@ -39,7 +39,7 @@ protected
   // Ballast physical characeristics
   parameter Modelica.SIunits.Mass m_ballast(displayUnit = "g") = 0.2;
   parameter Modelica.SIunits.Length r_CM_ballast[3] = {0.001, 0, 0};
-  parameter Modelica.SIunits.Density d_ballast = 7700;
+  parameter Modelica.SIunits.Density d_ballast = 11340;
   parameter Modelica.SIunits.DimensionlessRatio c_d_ballast = 1;
   parameter Modelica.SIunits.Area A_Ballast = 0.000375;
   // Ballast positioning

@@ -72,5 +72,5 @@ equation
   connect(firstOrder5.y, basicProp5.u) annotation(Line(visible = true, origin = {-52.667, 22.667}, points = {{-1.333, 7.333}, {-1.333, -3.667}, {2.667, -3.667}}, color = {1, 37, 163}));
   connect(firstOrder6.y, basicProp6.u) annotation(Line(visible = true, origin = {46.046, 22.667}, points = {{-1.443, 7.333}, {-1.443, -3.667}, {2.886, -3.667}}, color = {1, 37, 163}));
   connect(firstOrder3.y, basicProp3.u) annotation(Line(visible = true, origin = {46.046, 82.667}, points = {{-1.443, 7.333}, {-1.443, -3.667}, {2.886, -3.667}}, color = {1, 37, 163}));
-  annotation(experiment(StopTime = -1, Interval = 0.01), Diagram(coordinateSystem(extent = {{-300, -220}, {300, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+  annotation(experiment(StopTime = -1, Interval = 0.01), Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end BlueROV2ExtTest;

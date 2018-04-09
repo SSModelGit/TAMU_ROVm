@@ -19,16 +19,17 @@ model EEnclosure
   SI.Position r_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Position vector from origin of world frame to origin of frame_a" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
   SI.Velocity v_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Absolute velocity of frame_a, resolved in world frame (= der(r_0))" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
   SI.Acceleration a_0[3](start = {0, 0, 0}) "Absolute acceleration of frame_a resolved in world frame (= der(v_0))" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
+  // boolean parameters
+  parameter Boolean animation = true annotation(Evaluate = true, Dialog(tab = "Boolean"));
+  parameter Boolean animationFT = false annotation(Evaluate = true, Dialog(tab = "Boolean"));
+  parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
+  parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   // parameters for external frames and translations
   parameter SI.Length lf_pos[3];
   parameter SI.Length lb_pos[3];
   parameter SI.Length rf_pos[3];
   parameter SI.Length rb_pos[3];
   // parameters general
-  parameter Boolean animation = true;
-  parameter Boolean animationFT = false;
-  parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
-  parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced"));
   parameter SI.Length r_CM_EEnclosure[3] "r_CM from frame_a to center of mass of electronics enclosure";
   parameter SI.Mass m_EEnclosure "Mass of electronics enclosure";
   parameter SI.Density d_EEnclosure "Density of electronics enclosure";

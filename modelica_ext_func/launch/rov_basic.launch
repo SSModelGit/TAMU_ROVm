@@ -1,0 +1,17 @@
+<launch>
+ <!-- socket node -->
+  <node pkg="modelica_ext_func" type="inet_socket_ROV_relay_joy" name="socket">
+    <param name="scale" value="100" />
+  </node>
+
+ <!-- socket node -->
+  <node pkg="modelica_ext_func" type="rov_joystick_basic_control" name="controller_basic"/>
+
+ <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="two_springs_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.50" />
+  </node>
+
+</launch>
