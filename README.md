@@ -1,1 +1,2 @@
-# TAMU_ROVm
+# Underwater ROV modeling at Texas A&M Unmanned Systems Labs
+This is a library focused on developing a general underwater rigid body modeling framework in [Modelica](https://modelica.org), meant for modeling and simulating underwater ROV designs and controls. It is based off of the MultiBody library, and adds a water field component to allow for buoyancy and drag forces. It also contains basic connectivity to [ROS](http://www.ros.org), from the [ModROS](https://github.com/SSModelGit/ModROS) library.
