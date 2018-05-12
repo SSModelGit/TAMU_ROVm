@@ -13,7 +13,7 @@ record FrameParameters "Contains common parameters for frames"
   parameter SI.Length r_CM_Fairing[3] = {0, 0.05, 0} annotation(Dialog(tab = "Top Plate Specific"));
   parameter SI.Length r_Fairing[3] = r_TP annotation(Dialog(tab = "Top Plate Specific"));
   parameter SI.Density d_Fairing = 288 annotation(Dialog(tab = "Top Plate Specific"));
-  parameter SI.Mass m_Fairing(displayUnit = "g") = 148 annotation(Dialog(tab = "Top Plate Specific"));
+  parameter SI.Mass m_Fairing(displayUnit = "g") = 0.148 annotation(Dialog(tab = "Top Plate Specific"));
   parameter SI.Area A_Fairing = 0.002 annotation(Dialog(tab = "Top Plate Specific"));
   parameter SI.DimensionlessRatio c_d_Fairing = 0 annotation(Dialog(tab = "Top Plate Specific"));
   parameter SI.Length thickness[3] = {0, 0.05, 0} annotation(Dialog(tab = "Top Plate Specific"));
