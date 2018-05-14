@@ -13,7 +13,7 @@ model BasicProp
   parameter SI.Inductance L(start = 1) = 0.077 "Inductance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
   parameter Real direction = 1 "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
   // parameter for propeller mount
-  parameter SI.MassFlowRate k_m = 1 "Propeller shape coefficient, for representing fluid mass pushed through in some constant time t by propeller" annotation(Dialog(tab = "Propeller Body Specific"));
+  parameter SI.Mass k_m = 1 "Propeller shape coefficient, for representing fluid mass pushed through in some constant time t by propeller" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter SI.Length k_r = 1 "Propeller shape coefficient, for rotation-to-linear conversion in torque-to-force calculation" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Real eta = 0.85 "Efficiency coefficient of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
@@ -41,12 +41,12 @@ model BasicProp
   Modelica.Mechanics.Rotational.Sources.Torque loadTorque annotation(Placement(visible = true, transformation(origin = {43.23, 81.592}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(Placement(visible = true, transformation(origin = {75, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  // thrust.force = -k_m * (k_r * rotor.w - v_0 * n) * direction * n;
-  thrust.force = zeros(3);
+  thrust.force = k_m * abs(rotor.w) * (k_r * rotor.w - v_0 * n) * direction * n;
+  // thrust.force = zeros(3);
   // thrust.force = -mounting1D.housing.t * (1 / k_r) * eta * direction * exp(-(Modelica.Math.Vectors.length(v_0)));
   thrust.torque = zeros(3);
-  // loadTorque.tau = -Modelica.Math.Vectors.length(thrust.force) * (v_0 * n) / (rotor.w + 0.001 * exp(-rotor.w ^ 2)) / eta;
-  loadTorque.tau = 0;
+  loadTorque.tau = -Modelica.Math.Vectors.length(thrust.force) * (v_0 * n) / (rotor.w + 0.001 * exp(-rotor.w ^ 2)) / eta;
+  // loadTorque.tau = 0;
   r_0 = frame_b.r_0;
   v_0 = der(r_0);
   a_0 = der(v_0);
