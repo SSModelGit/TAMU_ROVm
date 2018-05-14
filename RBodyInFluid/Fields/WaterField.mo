@@ -8,6 +8,7 @@ model WaterField
   parameter Modelica.Mechanics.MultiBody.Types.AxisLabel label3 = "z" "Label of protruding axis in icon";
   replaceable function waterBuoyantForce = RBodyInFluid.Fields.Internal.standardBuoyantForce(pho_fluid = pho_field, g = world.g * Modelica.Math.Vectors.normalizeWithAssert(world.n)) constrainedby RBodyInFluid.Interfaces.partialBuoyantForce;
   replaceable function waterDragForce = RBodyInFluid.Fields.Internal.standardViscousDrag(pho_fluid = pho_field) constrainedby RBodyInFluid.Interfaces.partialViscousDrag;
+  replaceable function waterDragTorque = RBodyInFluid.Fields.Internal.standardViscousTorque constrainedby RBodyInFluid.Interfaces.partialViscousTorque;
 protected
   outer Modelica.Mechanics.MultiBody.World world;
   annotation(defaultComponentName = "waterField", defaultComponentPrefixes = "inner", missingInnerMessage = "No \"waterField\" component is defined.", Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));

@@ -18,5 +18,6 @@ record T200Parameters "Record of the propeller's parameters"
   parameter SI.Density d_Propeller = 1880 "Average density of propeller body";
   parameter SI.Area A_Propeller = 0.2 "Overall cross sectional area effective in drag of propeller body";
   parameter SI.DimensionlessRatio c_d_Propeller = 0 "Drag coefficient of the propeller body";
+  parameter SI.RotationalDampingConstant k_d_Propeller "Drag coefficient of torque on propeller body";
   annotation(Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end T200Parameters;
