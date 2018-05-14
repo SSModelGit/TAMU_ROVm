@@ -1,7 +1,7 @@
 within ROVm.Examples;
 
 model ROSConnectedBlueROV2
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-126.832, -95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.BottomFrame.BottomPlate bottomPlate(r_bP_Long = {0, 0, 0.7}, c_d_bP_Long = 0, c_d_bP_Short = 0) annotation(Placement(visible = true, transformation(origin = {2.929, -175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.SideFrame.SidePlate leftSide1(color = {0, 0, 0}, c_d_SP = 0) annotation(Placement(visible = true, transformation(origin = {70, -85}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -28,7 +28,7 @@ model ROSConnectedBlueROV2
   Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = 1, k = 1) annotation(Placement(visible = true, transformation(origin = {-65, 85}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.Propeller.Examples.BasicProp basicProp6(m_Propeller = 5, A_Propeller = 0.2, n = {0, 1, 0}, r = 1) annotation(Placement(visible = true, transformation(origin = {48.932, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1, k = 1) annotation(Placement(visible = true, transformation(origin = {33.603, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  ROVm.Controllers.ROVJoystickController rOVJoystickController(n = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-152.574, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Controllers.ROSControllerBlock_Joy rOVJoystickController(n = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-152.574, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(battery.pin_p, eEnclosure.pin_p) annotation(Line(visible = true, origin = {-8.62, -84.525}, points = {{16.381, -50.475}, {16.38, 17.975}, {-16.38, 17.975}, {-16.38, 14.525}}, color = {10, 90, 224}));
   connect(topPiece.frame_EC, eEnclosure.frame_lf) annotation(Line(visible = true, origin = {-24.762, -55.048}, points = {{-0.208, 12.905}, {3.462, 12.905}, {3.462, 7.048}, {-3.238, 7.048}, {-3.238, -19.952}, {-0.238, -19.952}}, color = {95, 95, 95}));
@@ -54,8 +54,6 @@ equation
   connect(basicProp2.frame_b, topPiece.frame_propA) annotation(Line(visible = true, origin = {-42.5, 13.958}, points = {{-7.5, 111.042}, {-7.5, -35.958}, {7.5, -35.958}, {7.5, -39.126}}, color = {95, 95, 95}));
   connect(basicProp3.frame_b, topPiece3.frame_propA) annotation(Line(visible = true, origin = {45.077, -39.547}, points = {{3.855, 99.547}, {3.855, 96.322}, {-8.777, 96.322}, {-8.777, -98.453}, {4.923, -98.453}, {4.923, -95.285}}, color = {95, 95, 95}));
   connect(basicProp4.frame_b, topPiece1.frame_propA) annotation(Line(visible = true, origin = {-46.659, -39.547}, points = {{-3.341, 99.547}, {-3.341, 96.322}, {-5.18, 96.322}, {-5.18, -98.453}, {8.52, -98.453}, {8.52, -95.285}}, color = {95, 95, 95}));
-  connect(basicProp5.frame_b, leftSide.frame_propV) annotation(Line(visible = true, origin = {-55, -63.333}, points = {{5, 63.333}, {5, -31.667}, {-10, -31.667}}, color = {95, 95, 95}));
-  connect(basicProp6.frame_b, leftSide1.frame_propV) annotation(Line(visible = true, origin = {69.685, -35.29}, points = {{-20.753, 35.29}, {-20.753, 32.065}, {15.595, 32.065}, {15.595, -49.71}, {10.315, -49.71}}, color = {95, 95, 95}));
   connect(firstOrder2.y, rOVJoystickController.u[1]) annotation(Line(visible = true, origin = {-109.287, 164.338}, points = {{55.287, -4.338}, {58.287, -4.338}, {58.287, 8.675}, {-58.287, 8.675}, {-58.287, -4.338}, {-55.287, -4.338}}, color = {1, 37, 163}));
   connect(firstOrder1.y, rOVJoystickController.u[2]) annotation(Line(visible = true, origin = {-68.458, 164.338}, points = {{96.116, -4.338}, {99.116, -4.338}, {99.116, 8.675}, {-99.116, 8.675}, {-99.116, -4.338}, {-96.116, -4.338}}, color = {1, 37, 163}));
   connect(firstOrder5.y, rOVJoystickController.u[3]) annotation(Line(visible = true, origin = {-109.287, 77.671}, points = {{55.287, -47.671}, {58.287, -47.671}, {58.287, -34.658}, {-58.287, -34.658}, {-58.287, 82.329}, {-55.287, 82.329}}, color = {1, 37, 163}));
@@ -72,5 +70,7 @@ equation
   connect(firstOrder5.y, basicProp5.u) annotation(Line(visible = true, origin = {-52.667, 22.667}, points = {{-1.333, 7.333}, {-1.333, -3.667}, {2.667, -3.667}}, color = {1, 37, 163}));
   connect(firstOrder6.y, basicProp6.u) annotation(Line(visible = true, origin = {46.046, 22.667}, points = {{-1.443, 7.333}, {-1.443, -3.667}, {2.886, -3.667}}, color = {1, 37, 163}));
   connect(firstOrder3.y, basicProp3.u) annotation(Line(visible = true, origin = {46.046, 82.667}, points = {{-1.443, 7.333}, {-1.443, -3.667}, {2.886, -3.667}}, color = {1, 37, 163}));
+  connect(basicProp5.frame_b, leftSide1.frame_propV) annotation(Line(visible = true, origin = {30.112, -35.29}, points = {{-80.112, 35.29}, {-80.112, 32.065}, {55.168, 32.065}, {55.168, -49.71}, {49.888, -49.71}}, color = {95, 95, 95}));
+  connect(basicProp6.frame_b, leftSide.frame_propV) annotation(Line(visible = true, origin = {10.955, -63.333}, points = {{37.977, 63.333}, {37.977, -31.667}, {-75.955, -31.667}}, color = {95, 95, 95}));
   annotation(experiment(StopTime = -1, Interval = 0.01), Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end ROSConnectedBlueROV2;

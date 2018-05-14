@@ -1,7 +1,7 @@
 within ROVm.Bin;
 
 model VectorPropTest
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-132.079, -35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-132.079, -35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-131.832, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.Propeller.Examples.BasicProp basicProp1(k = 10, m_Propeller = 0.5, A_Propeller = 0.2, R = 0.01, L = 1, r = 1, n = Modelica.Math.Vectors.normalize({-1, 0, 1})) annotation(Placement(visible = true, transformation(origin = {20, 87.633}, extent = {{-10, -10}, {10, 10}}, rotation = -360)));
   ROVm.Propeller.Examples.BasicProp basicProp2(k = 10, m_Propeller = 0.5, A_Propeller = 0.2, R = 0.01, L = 1, r = 1, direction = -1, n = Modelica.Math.Vectors.normalize({-1, 0, -1})) annotation(Placement(visible = true, transformation(origin = {-40, 87.761}, extent = {{-10, -10}, {10, 10}}, rotation = -360)));
@@ -9,7 +9,7 @@ model VectorPropTest
   ROVm.Propeller.Examples.BasicProp basicProp4(k = 10, m_Propeller = 0.5, A_Propeller = 0.2, R = 0.01, L = 1, r = 1, direction = -1, n = Modelica.Math.Vectors.normalize({1, 0, -1})) annotation(Placement(visible = true, transformation(origin = {-52.666, -57.584}, extent = {{-10, 10}, {10, -10}}, rotation = 360)));
   ROVm.Propeller.Examples.BasicProp basicProp5(k = 10, m_Propeller = 0.5, A_Propeller = 0.2, n = {0, 1, 0}, R = 0.01, L = 1, r = 1, direction = -1) annotation(Placement(visible = true, transformation(origin = {-92.677, 55}, extent = {{-10, -10}, {10, 10}}, rotation = -360)));
   ROVm.Propeller.Examples.BasicProp basicProp6(k = 10, m_Propeller = 0.5, A_Propeller = 0.2, n = {0, 1, 0}, R = 0.01, L = 1, r = 1) annotation(Placement(visible = true, transformation(origin = {120, 25}, extent = {{-10, -10}, {10, 10}}, rotation = -360)));
-  RBodyInFluid.Parts.BasicBody basicBody(density = 1000, c_d = 0, A = 0, r_CM = {0.5, -0.1, 0}, m = 5) annotation(Placement(visible = true, transformation(origin = {-1.726, 13.459}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody basicBody(density = 1000, c_d = 0, A = 0, r_CM = {0.5, -0.1, 0}, m = 5) annotation(Placement(visible = true, transformation(origin = {-1.726, 13.459}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation1(r = {1, 0, 0.5}, animation = false) annotation(Placement(visible = true, transformation(origin = {10, 58.467}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation2(r = {1, 0, -0.5}, animation = false) annotation(Placement(visible = true, transformation(origin = {-27.38, 65}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation3(r = {0, 0, 0.5}, animation = false) annotation(Placement(visible = true, transformation(origin = {55, -37.708}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

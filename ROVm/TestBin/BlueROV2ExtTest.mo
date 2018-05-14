@@ -1,7 +1,7 @@
 within ROVm.TestBin;
 
 model BlueROV2ExtTest
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-126.832, -95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.BottomFrame.BottomPlate bottomPlate(r_bP_Long = {0, 0, 0.7}, c_d_bP_Long = 0, c_d_bP_Short = 0) annotation(Placement(visible = true, transformation(origin = {2.929, -175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.SideFrame.SidePlate leftSide1(color = {0, 0, 0}, c_d_SP = 0) annotation(Placement(visible = true, transformation(origin = {70, -85}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));

@@ -8,11 +8,11 @@ model mounty
   Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(visible = true, transformation(origin = {-55, -17.255}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Sources.StepVoltage stepVoltage(V = 9) annotation(Placement(visible = true, transformation(origin = {-85, 2.071}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-130, -45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody basicBody(density = 1000, c_d = 0, A = 0.25, r_CM = {0, 0, 1}, m = 5, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) annotation(Placement(visible = true, transformation(origin = {60, -43.443}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-133.212, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody basicBody(density = 1000, c_d = 0, A = 0.25, r_CM = {0, 0, 1}, m = 5, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) annotation(Placement(visible = true, transformation(origin = {60, -43.443}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-133.212, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanStep booleanStep(startTime = 0) annotation(Placement(visible = true, transformation(origin = {-115, 55}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter Modelica.SIunits.Length b = 0.1;
-  RBodyInFluid.Parts.BasicBody basicBody1(c_d = 0, A = 0.25, density = 1000, r_CM = {0, 0, 0}, m = 5, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) annotation(Placement(visible = true, transformation(origin = {52.12, -17.6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody basicBody1(c_d = 0, A = 0.25, density = 1000, r_CM = {0, 0, 0}, m = 5, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5) annotation(Placement(visible = true, transformation(origin = {52.12, -17.6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque thing(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_resolve) annotation(Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Rotor1D rotor1D(J = 2) annotation(Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1D annotation(Placement(visible = true, transformation(origin = {10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -2,11 +2,11 @@ within ROVm.FrameBody.BottomFrame;
 
 model BottomPlate
   import SI = Modelica.SIunits;
-  RBodyInFluid.Parts.BasicBody ballast1(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation) annotation(Placement(visible = true, transformation(origin = {-85, 32.929}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody ballast2(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation) annotation(Placement(visible = true, transformation(origin = {75, 32.929}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody ballast3(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation) annotation(Placement(visible = true, transformation(origin = {115, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody ballast4(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation) annotation(Placement(visible = true, transformation(origin = {83.34, -45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody ballast5(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation) annotation(Placement(visible = true, transformation(origin = {-90, -45}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody ballast1(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation, k_d = k_d_ballast) annotation(Placement(visible = true, transformation(origin = {-85, 32.929}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody ballast2(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation, k_d = k_d_ballast) annotation(Placement(visible = true, transformation(origin = {75, 32.929}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody ballast3(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation, k_d = k_d_ballast) annotation(Placement(visible = true, transformation(origin = {115, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody ballast4(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation, k_d = k_d_ballast) annotation(Placement(visible = true, transformation(origin = {83.34, -45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody ballast5(m = m_ballast, r_CM = r_CM_ballast, density = d_ballast, c_d = c_d_ballast, A = A_Ballast, animation = animation, k_d = k_d_ballast) annotation(Placement(visible = true, transformation(origin = {-90, -45}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lf "Left front connection to side plates, as viewed from the back" annotation(Placement(visible = true, transformation(origin = {-148.052, 75}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-99.698, 71.429}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lb "Left back connection to side plate, as viewed from the back" annotation(Placement(visible = true, transformation(origin = {-148.052, -80}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-99.698, -76.19}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_rf "Right front connection to side plate, as viewed from the back" annotation(Placement(visible = true, transformation(origin = {150, 85}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {100.302, 71.429}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -17,30 +17,33 @@ model BottomPlate
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation3(r = ballastPosition3, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {85, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation4(r = ballastPosition4, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {33.34, -45}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation5(r = ballastPosition5, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-55, -45}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBodyShape bottomPlateU(density = d_plate, r = r_bP_Long, r_CM = r_CM_bP_Long, m = m_bP_Long, A = A_bP_Long, c_d = c_d_bP_Long, animation = animation) annotation(Placement(visible = true, transformation(origin = {-5, 66.951}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBodyShape bottomPlateB(density = d_plate, r = r_bP_Long, r_CM = r_CM_bP_Long, m = m_bP_Long, A = A_bP_Long, c_d = c_d_bP_Long, animation = animation) annotation(Placement(visible = true, transformation(origin = {-16.565, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBodyShape bottomPlateC(density = d_plate, r = r_bP_Short, r_CM = r_CM_bP_Short, m = m_bP_Short, A = A_bP_Short, c_d = c_d_bP_Short, animation = animation) annotation(Placement(visible = true, transformation(origin = {52.785, 95.111}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape bottomPlateU(density = d_plate, r = r_bP_Long, r_CM = r_CM_bP_Long, m = m_bP_Long, A = A_bP_Long, c_d = c_d_bP_Long, animation = animation, k_d = k_d_bP_Long) annotation(Placement(visible = true, transformation(origin = {-5, 66.951}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape bottomPlateB(density = d_plate, r = r_bP_Long, r_CM = r_CM_bP_Long, m = m_bP_Long, A = A_bP_Long, c_d = c_d_bP_Long, animation = animation, k_d = k_d_bP_Long) annotation(Placement(visible = true, transformation(origin = {-16.565, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape bottomPlateC(density = d_plate, r = r_bP_Short, r_CM = r_CM_bP_Short, m = m_bP_Short, A = A_bP_Short, c_d = c_d_bP_Short, animation = animation, k_d = k_d_bP_Short) annotation(Placement(visible = true, transformation(origin = {52.785, 95.111}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter Boolean animation = true;
   parameter Boolean animationFT = true;
   parameter SI.Density d_plate = 970;
-  parameter SI.Length r_bP_Long[3] = {0, 0, 0.6};
+  parameter SI.Length r_bP_Long[3] = {0, 0, 0.7};
   parameter SI.Length r_CM_bP_Long[3] = r_bP_Long / 2;
   parameter SI.Mass m_bP_Long = 0.25;
   parameter SI.Area A_bP_Long = 0.0009;
   parameter SI.DimensionlessRatio c_d_bP_Long = 1;
+  parameter SI.RotationalDampingConstant k_d_bP_Long = 1;
   parameter SI.DimensionlessRatio c_d_bP_Short = 1;
+  parameter SI.RotationalDampingConstant k_d_bP_Short = 1;
   parameter Real innerScaleFactor = 2;
   parameter SI.Length r_bP_Short[3] = {0.3, 0, 0};
   parameter Modelica.Mechanics.MultiBody.Types.Axis innerRotationAxis "Think wisely, grasshopper.";
-  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_bP_Short / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {25, 95}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation(r = r_bP_Short / 2 + {0, 0.00635, 0}, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {25, 95}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation6(r = r_bP_Long / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {-67.641, 2.416}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation fixedTranslation7(r = -1 * r_bP_Long / 2, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {15, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 protected
   // Ballast physical characeristics
   parameter Modelica.SIunits.Mass m_ballast(displayUnit = "g") = 0.2;
-  parameter Modelica.SIunits.Length r_CM_ballast[3] = {0.001, 0, 0};
+  parameter Modelica.SIunits.Length r_CM_ballast[3] = {0, 0, 0};
   parameter Modelica.SIunits.Density d_ballast = 11340;
   parameter Modelica.SIunits.DimensionlessRatio c_d_ballast = 1;
+  parameter SI.RotationalDampingConstant k_d_ballast = 1;
   parameter Modelica.SIunits.Area A_Ballast = 0.000375;
   // Ballast positioning
   parameter SI.Length ballastPosition1[3] = r_bP_Long / 4;

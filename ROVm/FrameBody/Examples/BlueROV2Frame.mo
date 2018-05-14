@@ -1,7 +1,7 @@
 within ROVm.FrameBody.Examples;
 
 model BlueROV2Frame
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-132.079, -35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-132.079, -35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-131.832, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   SideFrame.SidePlate leftSide annotation(Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   TopFrame.TopPiece topPiece annotation(Placement(visible = true, transformation(origin = {-40, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -12,7 +12,7 @@ model BlueROV2Frame
   Electronics.Battery.Battery battery(r_CM_Battery = {0, 0.1, 0}, m_Battery = 3, d_Battery = 5000, A_Battery = 0.25, c_d_Battery = 1, C_Battery = 18) annotation(Placement(visible = true, transformation(origin = {12.761, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   SideFrame.SidePlate leftSide1 annotation(Placement(visible = true, transformation(origin = {65, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   BottomFrame.BottomPlate bottomPlate(r_bP_Long = {0, 0, 0.7}) annotation(Placement(visible = true, transformation(origin = {-2.071, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody basicBody(c_d = 1, A = 1, r_CM = {0, 0, 0}, m = 5) annotation(Placement(visible = true, transformation(origin = {-126.655, 83.171}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody basicBody(c_d = 1, A = 1, r_CM = {0, 0, 0}, m = 5) annotation(Placement(visible = true, transformation(origin = {-126.655, 83.171}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(battery.pin_p, eEnclosure.pin_p) annotation(Line(visible = true, origin = {-13.497, -8.157}, points = {{16.258, -31.843}, {16.258, -28.843}, {18.497, -28.843}, {18.497, 11.608}, {-26.503, 11.608}, {-26.503, 33.157}, {-16.503, 33.157}}, color = {10, 90, 224}));
   connect(eEnclosure.pin_n, battery.pin_n) annotation(Line(visible = true, origin = {16.071, -7.5}, points = {{-26.071, 32.5}, {9.69, 32.5}, {9.69, -32.5}, {6.69, -32.5}}, color = {10, 90, 224}));

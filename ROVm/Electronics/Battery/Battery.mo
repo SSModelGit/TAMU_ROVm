@@ -5,7 +5,7 @@ model Battery
   Modelica.Electrical.Analog.Interfaces.PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBody battery(A = A_Battery, animation = animation, r_CM = r_CM_Battery, m = m_Battery, c_d = c_d_Battery, density = d_Battery) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody battery(A = A_Battery, animation = animation, r_CM = r_CM_Battery, m = m_Battery, c_d = c_d_Battery, density = d_Battery, k_d = k_d_Battery) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Capacitor capacitor(v.start = V_Battery, C = C_Battery) annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // movement vectors
   SI.Position r_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Position vector from origin of world frame to origin of frame_a" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
@@ -20,6 +20,7 @@ model Battery
   parameter SI.Density d_Battery = 725.6 "Density of battery & battery enclosure";
   parameter SI.Area A_Battery "Overall cross sectional area of the battery enclosure";
   parameter SI.DimensionlessRatio c_d_Battery "Drag coefficient of the battery enclosure";
+  parameter SI.RotationalDampingConstant k_d_Battery = 1 "Rotational drag coefficient of the battery enclosure";
   parameter SI.Voltage V_Battery "Starting voltage of battery" annotation(Dialog(tab = "Initialization"));
   parameter SI.Capacitance C_Battery = 18 "Capacitance of battery";
   Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(visible = true, transformation(origin = {40, 76.91}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

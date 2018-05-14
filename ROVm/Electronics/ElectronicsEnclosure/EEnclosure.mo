@@ -5,7 +5,7 @@ model EEnclosure
   Modelica.Electrical.Analog.Interfaces.PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lb annotation(Placement(visible = true, transformation(origin = {-149, -61}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, -70}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  RBodyInFluid.Parts.BasicBodyShape eEnclosure(A = A_EEnclosure, animation = animation, r_CM = r_CM_EEnclosure, m = m_EEnclosure, c_d = c_d_EEnclosure, density = d_EEnclosure, r = r_CM_EEnclosure * 2, color = color, shapeType = "cylinder") annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape eEnclosure(A = A_EEnclosure, animation = animation, r_CM = r_CM_EEnclosure, m = m_EEnclosure, c_d = c_d_EEnclosure, density = d_EEnclosure, r = r_CM_EEnclosure * 2, color = color, shapeType = "cylinder", k_d = k_d_EEnclosure) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R_EEnclosure) annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // frames to TopPieces
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_lf annotation(Placement(visible = true, transformation(origin = {-147.707, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -35,6 +35,7 @@ model EEnclosure
   parameter SI.Density d_EEnclosure "Density of electronics enclosure";
   parameter SI.Area A_EEnclosure "Overall cross sectional area of the electronics enclosure";
   parameter SI.DimensionlessRatio c_d_EEnclosure "Drag coefficient of the electronics enclosure";
+  parameter SI.RotationalDampingConstant k_d_EEnclosure = 1 "Rotational drag coefficient of the electronics enclosure";
   parameter SI.Resistance R_EEnclosure "Resistance of electronics enclosure";
   // animation parameters
   input Modelica.Mechanics.MultiBody.Types.Color color = Modelica.Mechanics.MultiBody.Types.Defaults.BodyColor "Color of shape" annotation(Dialog(colorSelector = true, tab = "Animation", group = "if animation = true", enable = animation));
