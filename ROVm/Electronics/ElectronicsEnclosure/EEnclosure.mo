@@ -40,7 +40,7 @@ model EEnclosure
   // animation parameters
   input Modelica.Mechanics.MultiBody.Types.Color color = Modelica.Mechanics.MultiBody.Types.Defaults.BodyColor "Color of shape" annotation(Dialog(colorSelector = true, tab = "Animation", group = "if animation = true", enable = animation));
 equation
-  r_0 = frame_lb.r_0;
+  r_0 = eEnclosure.r_0;
   v_0 = der(r_0);
   a_0 = der(v_0);
   connect(resistor.n, pin_n) annotation(Line(visible = true, origin = {55, 100}, points = {{-45, 0}, {45, 0}}, color = {10, 90, 224}));

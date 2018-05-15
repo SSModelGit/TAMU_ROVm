@@ -16,5 +16,5 @@ equation
   connect(rOVJoystickController.y[4], firstOrder4.u) annotation(Line(visible = true, origin = {-94.644, 112.5}, points = {{-46.93, 37.5}, {14.644, 37.5}, {14.644, -37.5}, {27.644, -37.5}}, color = {1, 37, 163}));
   connect(rOVJoystickController.y[5], firstOrder5.u) annotation(Line(visible = true, origin = {-94.644, 85}, points = {{-46.93, 65}, {14.644, 65}, {14.644, -65}, {27.644, -65}}, color = {1, 37, 163}));
   connect(rOVJoystickController.y[6], firstOrder6.u) annotation(Line(visible = true, origin = {-29.993, 117.5}, points = {{-111.581, 32.5}, {29.993, 32.5}, {29.993, -97.5}, {61.596, -97.5}}, color = {1, 37, 163}));
-  annotation(experiment(StopTime = -1, Interval = 0.01), Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+  annotation(experiment(StopTime = -1, Interval = 0.01, __Wolfram_Algorithm = "cvodes", Tolerance = 1e-3), Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end ROSConnectedBlueROV2;
