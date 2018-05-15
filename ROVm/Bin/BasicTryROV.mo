@@ -1,4 +1,4 @@
-within ROVm.Examples;
+within ROVm.Bin;
 
 model BasicTryROV
   inner Modelica.Mechanics.MultiBody.World world(gravityType = Modelica.Mechanics.MultiBody.Types.GravityTypes.UniformGravity) annotation(Placement(visible = true, transformation(origin = {-138.043, -95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
