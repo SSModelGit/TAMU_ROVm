@@ -1,7 +1,7 @@
 within ROVm.TestBin;
 
 model BlueROV2ExtTest
-  inner RBodyInFluid.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-126.832, -95}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.BottomFrame.BottomPlate bottomPlate(r_bP_Long = {0, 0, 0.7}, c_d_bP_Long = 0, c_d_bP_Short = 0) annotation(Placement(visible = true, transformation(origin = {2.929, -175}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.FrameBody.SideFrame.SidePlate leftSide1(color = {0, 0, 0}, c_d_SP = 0) annotation(Placement(visible = true, transformation(origin = {70, -85}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -28,7 +28,7 @@ model BlueROV2ExtTest
   Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = 1, k = 1) annotation(Placement(visible = true, transformation(origin = {-65, 85}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   ROVm.Propeller.Examples.BasicProp basicProp6(m_Propeller = 5, A_Propeller = 0.2, n = {0, 1, 0}, r = 1) annotation(Placement(visible = true, transformation(origin = {48.932, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1, k = 1) annotation(Placement(visible = true, transformation(origin = {33.603, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Controllers.ROVJoystickController rOVJoystickController(n = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-152.574, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Controllers.ROSControllerBlock_Joy rOVJoystickController(n = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-152.574, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(battery.pin_p, eEnclosure.pin_p) annotation(Line(visible = true, origin = {-8.62, -84.525}, points = {{16.381, -50.475}, {16.38, 17.975}, {-16.38, 17.975}, {-16.38, 14.525}}, color = {10, 90, 224}));
   connect(topPiece.frame_EC, eEnclosure.frame_lf) annotation(Line(visible = true, origin = {-24.762, -55.048}, points = {{-0.208, 12.905}, {3.462, 12.905}, {3.462, 7.048}, {-3.238, 7.048}, {-3.238, -19.952}, {-0.238, -19.952}}, color = {95, 95, 95}));

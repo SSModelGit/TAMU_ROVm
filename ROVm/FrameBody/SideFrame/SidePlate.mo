@@ -2,7 +2,7 @@ within ROVm.FrameBody.SideFrame;
 
 model SidePlate
   import SI = Modelica.SIunits;
-  RBodyInFluid.Parts.BasicBodyShape sidePlate(r_CM = r_CM_SP, r = r_SP, animation = animation, m = m_SP, density = d_plate, c_d = c_d_SP, A = A_SP, color = color) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape sidePlate(r_CM = r_CM_SP, r = r_SP, animation = animation, m = m_SP, density = d_plate, c_d = c_d_SP, A = A_SP, color = color, k_d = k_d_SP) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_frontU annotation(Placement(visible = true, transformation(origin = {-146, 86}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-90, 58.159}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_backU annotation(Placement(visible = true, transformation(origin = {146, 86}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {90, 56}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_frontL annotation(Placement(visible = true, transformation(origin = {-146, -80}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-74, -62.226}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -29,6 +29,7 @@ model SidePlate
   parameter SI.Mass m_SP = 2;
   parameter SI.Area A_SP = 0.5;
   parameter SI.DimensionlessRatio c_d_SP = 1;
+  parameter SI.RotationalDampingConstant k_d_SP = 1;
   parameter SI.Length TP_Pos[3] = {0.4, 0, 0} "Position of front side top piece connection point, from center of mass of side plate";
   parameter SI.Length BP_Pos[3] = {0.15, 0, 0} "Position of back side bottom plate connection point, from center of mass of side plate";
   parameter SI.Length propVPos[3] = {0.5, 0.2, 0} "Position of vertical propeller from frame_a";
