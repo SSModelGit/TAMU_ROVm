@@ -8,9 +8,9 @@ equation
   connect(clock.y, combiTable1Ds.u) annotation(Line(visible = true, origin = {-153.861, 150}, points = {{-10.139, 0}, {10.139, 0}}, color = {1, 37, 163}));
   connect(combiTable1Ds.y[1], firstOrder1.u) annotation(Line(visible = true, origin = {-49.313, 157.365}, points = {{-71.409, -7.365}, {-28.267, -7.365}, {-28.267, 11.048}, {63.971, 11.048}, {63.971, -7.365}}, color = {1, 37, 163}));
   connect(combiTable1Ds.y[2], firstOrder2.u) annotation(Line(visible = true, origin = {-93.861, 150}, points = {{-26.861, 0}, {26.861, 0}}, color = {1, 37, 163}));
-  connect(combiTable1Ds.y[3], firstOrder3.u) annotation(Line(visible = true, origin = {-42.535, 114}, points = {{-78.187, 36}, {-35.045, 36}, {-35.045, -19}, {74.138, -19}, {74.138, -34}}, color = {1, 37, 163}));
+  connect(combiTable1Ds.y[3], firstOrder3.u) annotation(Line(visible = true, origin = {-29.677, 116.657}, points = {{-91.045, 33.343}, {29.348, 33.343}, {29.348, -33.343}, {32.348, -33.343}}, color = {1, 37, 163}));
   connect(combiTable1Ds.y[4], firstOrder4.u) annotation(Line(visible = true, origin = {-81.93, 112.5}, points = {{-38.792, 37.5}, {11.93, 37.5}, {11.93, -37.5}, {14.93, -37.5}}, color = {1, 37, 163}));
   connect(combiTable1Ds.y[5], firstOrder5.u) annotation(Line(visible = true, origin = {-81.93, 85}, points = {{-38.792, 65}, {11.93, 65}, {11.93, -65}, {14.93, -65}}, color = {1, 37, 163}));
-  connect(combiTable1Ds.y[6], firstOrder6.u) annotation(Line(visible = true, origin = {-42.535, 80}, points = {{-78.187, 70}, {-35.045, 70}, {-35.045, -40}, {74.138, -40}, {74.138, -60}}, color = {1, 37, 163}));
+  connect(combiTable1Ds.y[6], firstOrder6.u) annotation(Line(visible = true, origin = {-29.677, 86.657}, points = {{-91.045, 63.343}, {29.348, 63.343}, {29.348, -63.343}, {32.348, -63.343}}, color = {1, 37, 163}));
   annotation(experiment(StopTime = 500.0), Diagram(coordinateSystem(extent = {{-220, -220}, {220, 220}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end DataBasedBlueROV2;

@@ -1,4 +1,4 @@
-within ROVm.TestBin;
+within ROVm.Bin;
 
 model BlueROV2ExtTest
   inner UnderwaterRigidBodyLibrary.Fields.WaterField waterField annotation(Placement(visible = true, transformation(origin = {-127.079, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
