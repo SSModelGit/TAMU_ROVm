@@ -5,7 +5,7 @@ model BasicBody
   Modelica.Mechanics.MultiBody.Parts.Body body(r_CM = r_CM, m = m, I_11 = I_11, I_22 = I_22, I_33 = I_33, I_21 = I_21, I_31 = I_31, I_32 = I_32, animation = animation, angles_fixed = angles_fixed, angles_start = angles_start, sequence_start = sequence_start, w_0_fixed = w_0_fixed, w_0_start = w_0_start, z_0_fixed = z_0_fixed, z_0_start = z_0_start, sphereDiameter = sphereDiameter, sphereColor = sphereColor, cylinderDiameter = cylinderDiameter, cylinderColor = cylinderColor, specularCoefficient = specularCoefficient, enforceStates = enforceStates, useQuaternions = useQuaternions, sequence_angleStates = sequence_angleStates) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   parameter Modelica.SIunits.Density density = 7700 "Density of object";
-  parameter Modelica.SIunits.DimensionlessRatio c_d "Constant of viscosity" annotation(Dialog);
+  parameter Modelica.SIunits.DimensionlessRatio mu_d "Constant of viscosity" annotation(Dialog);
   parameter Modelica.SIunits.RotationalDampingConstant k_d "Coefficient representing angular damping due to viscosity" annotation(Dialog);
   parameter Modelica.SIunits.Area A "Cross sectional area of the object" annotation(Dialog);
   SI.Force f_d[3] "Drag force";
@@ -53,7 +53,7 @@ equation
   w_a = Modelica.Mechanics.MultiBody.Frames.angularVelocity2(frame_a.R);
   // forces and torques due to fields
   b_f = waterField.waterBuoyantForce(d = density, m = body.m);
-  f_d = waterField.waterDragForce(v = body.v_0 - Frames.resolve1(frame_a.R, cross(r_CM, w_a)), c = c_d, A = A);
+  f_d = waterField.waterDragForce(v = body.v_0 - Frames.resolve1(frame_a.R, cross(r_CM, w_a)), mu = mu_d, A = A);
   t_d = Frames.resolve1(frame_a.R, waterField.waterDragTorque(w = w_a, k = k_d));
   // applying force and torques due to fields
   field.force = b_f + f_d;

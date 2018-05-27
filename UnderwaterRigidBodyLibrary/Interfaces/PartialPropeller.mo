@@ -26,14 +26,14 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   parameter Modelica.SIunits.Inertia j_Propeller = 2 "Inertia of propeller body";
   parameter Modelica.SIunits.Density d_Propeller = 1000 "Average density of propeller body";
   parameter Modelica.SIunits.Area A_Propeller "Overall cross sectional area effective in drag of propeller body";
-  parameter Modelica.SIunits.DimensionlessRatio c_d_Propeller = 0 "Drag coefficient of the propeller body";
+  parameter Modelica.SIunits.DimensionlessRatio mu_d_Propeller = 0 "Drag coefficient of the propeller body";
   parameter Modelica.SIunits.RotationalDampingConstant k_d_Propeller "Drag coefficient of torque on propeller body";
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R) annotation(Placement(visible = true, transformation(origin = {-76.832, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Inductor inductor(L = L) annotation(Placement(visible = true, transformation(origin = {-45, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Rotor1D rotor(J = j_Propeller, n = n, exact = false) "Inertia of part of propeller interacting with the water" annotation(Placement(visible = true, transformation(origin = {38.207, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1D(n = n, phi0 = 0) annotation(Placement(visible = true, transformation(origin = {-40, -0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque thrust(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_resolve) annotation(Placement(visible = true, transformation(origin = {20, -27.73}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  UnderwaterRigidBodyLibrary.Parts.BasicBody propeller(c_d = c_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5, k_d = k_d_Propeller) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {-55, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody propeller(mu_d = mu_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5, k_d = k_d_Propeller) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {-55, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.EMF propEMF(useSupport = true, k = k * direction) "EMF that drives the propeller" annotation(Placement(visible = true, transformation(origin = {-1.994, 35}, extent = {{-10, -10}, {10, 10}}, rotation = -630)));
   Modelica.Mechanics.Rotational.Sources.Torque loadTorque annotation(Placement(visible = true, transformation(origin = {43.23, 81.592}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(Placement(visible = true, transformation(origin = {75, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

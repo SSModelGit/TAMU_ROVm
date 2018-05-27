@@ -5,7 +5,7 @@ model Lumen
   Modelica.Electrical.Analog.Interfaces.PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  UnderwaterRigidBodyLibrary.Parts.BasicBody lumen(A = A_Lumen, animation = animation, r_CM = r_CM_Lumen, m = m_Lumen, c_d = c_d_Lumen, density = d_Lumen, sphereColor = color, k_d = k_d_Lumen) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody lumen(A = A_Lumen, animation = animation, r_CM = r_CM_Lumen, m = m_Lumen, mu_d = mu_d_Lumen, density = d_Lumen, sphereColor = color, k_d = k_d_Lumen) annotation(Placement(visible = true, transformation(origin = {2.301, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R_Lumen) annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // movement vectors
   SI.Position r_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Position vector from origin of world frame to origin of frame_a" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
@@ -19,7 +19,7 @@ model Lumen
   parameter SI.Mass m_Lumen "Mass of lumen";
   parameter SI.Density d_Lumen "Density of lumen";
   parameter SI.Area A_Lumen "Overall cross sectional area of the lumen";
-  parameter SI.DimensionlessRatio c_d_Lumen "Drag coefficient of the lumen";
+  parameter SI.DimensionlessRatio mu_d_Lumen "Drag coefficient of the lumen";
   parameter SI.RotationalDampingConstant k_d_Lumen = 1 "Rotational drag coefficient of the lumen";
   parameter SI.Resistance R_Lumen "Resistance of lumen";
   input Modelica.Mechanics.MultiBody.Types.Color color = Modelica.Mechanics.MultiBody.Types.Defaults.BodyColor "Color of shape" annotation(Dialog(colorSelector = true, tab = "Animation", group = "if animation = true", enable = animation));

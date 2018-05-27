@@ -11,7 +11,7 @@ model BasicBodyShape "Rigid body with mass, inertia tensor, different shapes for
   parameter SI.Position r_CM[3](start = {0, 0, 0}) "Vector from frame_a to center of mass, resolved in frame_a";
   parameter SI.Mass m(min = 0, start = 1) "Mass of rigid body";
   parameter SI.Density density(min = 0, start = 1000) = 1000 "Density of rigid body";
-  parameter SI.DimensionlessRatio c_d(min = 0, start = 1) = 1 "Viscous drag coefficient of rigid body";
+  parameter SI.DimensionlessRatio mu_d(min = 0, start = 1) = 1 "Viscous drag coefficient of rigid body";
   parameter SI.RotationalDampingConstant k_d = 1;
   parameter SI.Area A(min = 0, start = 1) "Cross sectional area of rigid body";
   parameter SI.Inertia I_11(min = 0) = 0.001 "(1,1) element of inertia tensor" annotation(Dialog(group = "Inertia tensor (resolved in center of mass, parallel to frame_a)"));
@@ -46,7 +46,7 @@ model BasicBodyShape "Rigid body with mass, inertia tensor, different shapes for
   parameter Boolean useQuaternions = true "= true, if quaternions shall be used as potential states otherwise use 3 angles as potential states" annotation(Dialog(tab = "Advanced"));
   parameter Types.RotationSequence sequence_angleStates = {1, 2, 3} "Sequence of rotations to rotate world frame into frame_a around the 3 angles used as potential states" annotation(Evaluate = true, Dialog(tab = "Advanced", enable = not useQuaternions));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation frameTranslation(r = r, animation = false) annotation(Placement(transformation(extent = {{-20, -20}, {20, 20}})));
-  BasicBody body(r_CM = r_CM, m = m, I_11 = I_11, I_22 = I_22, I_33 = I_33, I_21 = I_21, I_31 = I_31, I_32 = I_32, animation = animation, sequence_start = sequence_start, angles_fixed = angles_fixed, angles_start = angles_start, w_0_fixed = w_0_fixed, w_0_start = w_0_start, z_0_fixed = z_0_fixed, z_0_start = z_0_start, useQuaternions = useQuaternions, sequence_angleStates = sequence_angleStates, enforceStates = false, density = density, c_d = c_d, A = A, k_d = k_d) annotation(Placement(transformation(extent = {{-27.3333, -70.3333}, {13, -30}})));
+  BasicBody body(r_CM = r_CM, m = m, I_11 = I_11, I_22 = I_22, I_33 = I_33, I_21 = I_21, I_31 = I_31, I_32 = I_32, animation = animation, sequence_start = sequence_start, angles_fixed = angles_fixed, angles_start = angles_start, w_0_fixed = w_0_fixed, w_0_start = w_0_start, z_0_fixed = z_0_fixed, z_0_start = z_0_start, useQuaternions = useQuaternions, sequence_angleStates = sequence_angleStates, enforceStates = false, density = density, mu_d = mu_d, A = A, k_d = k_d) annotation(Placement(transformation(extent = {{-27.3333, -70.3333}, {13, -30}})));
 protected
   outer Modelica.Mechanics.MultiBody.World world;
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape shape1(shapeType = shapeType, color = color, specularCoefficient = specularCoefficient, length = length, width = width, height = height, lengthDirection = lengthDirection, widthDirection = widthDirection, r_shape = r_shape, extra = extra, r = frame_a.r_0, R = frame_a.R) if world.enableAnimation and animation;

@@ -7,7 +7,7 @@ model WaterField
   parameter Modelica.Mechanics.MultiBody.Types.AxisLabel label2 = "y" "Label of vertical axis in icon";
   parameter Modelica.Mechanics.MultiBody.Types.AxisLabel label3 = "z" "Label of protruding axis in icon";
   replaceable function waterBuoyantForce = UnderwaterRigidBodyLibrary.Fields.Internal.standardBuoyantForce(pho_fluid = pho_field, g = world.g * Modelica.Math.Vectors.normalizeWithAssert(world.n)) constrainedby UnderwaterRigidBodyLibrary.Interfaces.partialBuoyantForce;
-  replaceable function waterDragForce = UnderwaterRigidBodyLibrary.Fields.Internal.standardViscousDrag(pho_fluid = pho_field) constrainedby UnderwaterRigidBodyLibrary.Interfaces.partialViscousDrag;
+  replaceable function waterDragForce = UnderwaterRigidBodyLibrary.Fields.Internal.standardViscousDrag constrainedby UnderwaterRigidBodyLibrary.Interfaces.partialViscousDrag;
   replaceable function waterDragTorque = UnderwaterRigidBodyLibrary.Fields.Internal.standardViscousTorque constrainedby UnderwaterRigidBodyLibrary.Interfaces.partialViscousTorque;
 protected
   outer Modelica.Mechanics.MultiBody.World world;

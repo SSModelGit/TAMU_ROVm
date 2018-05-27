@@ -2,11 +2,11 @@ within ROVm.FrameBody.TopFrame;
 
 model TopPiece
   import SI = Modelica.SIunits;
-  UnderwaterRigidBodyLibrary.Parts.BasicBody fairing(m = m_Fairing, r_CM = r_CM_Fairing, density = d_Fairing, c_d = c_d_Fairing, A = A_Fairing, animation = animation, k_d = k_d_Fairing) annotation(Placement(visible = true, transformation(origin = {-42.568, -37.312}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBody fairing(m = m_Fairing, r_CM = r_CM_Fairing, density = d_Fairing, mu_d = mu_d_Fairing, A = A_Fairing, animation = animation, k_d = k_d_Fairing) annotation(Placement(visible = true, transformation(origin = {-42.568, -37.312}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_SF "Left front connection to side plates, as viewed from the back" annotation(Placement(visible = true, transformation(origin = {-149, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-99.698, 71.429}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_EC "Right front connection to side plate, as viewed from the back" annotation(Placement(visible = true, transformation(origin = {149, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {100.302, 71.429}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.FixedTranslation angledPropPosition(r = r_CM_TP - thickness, animation = animationFT) annotation(Placement(visible = true, transformation(origin = {0, -55}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape topPlate(density = d_plate, r = r_TP, r_CM = r_CM_TP, m = m_TP, A = A_TP, c_d = c_d_TP, animation = animation, k_d = k_d_TP) annotation(Placement(visible = true, transformation(origin = {-1.549, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  UnderwaterRigidBodyLibrary.Parts.BasicBodyShape topPlate(density = d_plate, r = r_TP, r_CM = r_CM_TP, m = m_TP, A = A_TP, mu_d = mu_d_TP, animation = animation, k_d = k_d_TP) annotation(Placement(visible = true, transformation(origin = {-1.549, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_b frame_propA "Connection to the battery enclosure" annotation(Placement(visible = true, transformation(origin = {0, -104}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {0, -98.316}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   SI.Position r_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Position vector from origin of world frame to origin of frame_a" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
   SI.Velocity v_0[3](start = {0, 0, 0}, each stateSelect = if enforceStates then StateSelect.always else StateSelect.avoid) "Absolute velocity of frame_a, resolved in world frame (= der(r_0))" annotation(Dialog(tab = "Initialization", showStartAttribute = true));
@@ -19,9 +19,9 @@ model TopPiece
   parameter SI.Length r_CM_Fairing[3] = {0, 0.05, 0};
   parameter SI.Mass m_TP = 0.25;
   parameter SI.Area A_TP = 0.0009;
-  parameter SI.DimensionlessRatio c_d_TP = 1;
+  parameter SI.DimensionlessRatio mu_d_TP = 1;
   parameter SI.RotationalDampingConstant k_d_TP = 1 "Drag coefficient of torque on propeller body";
-  parameter SI.DimensionlessRatio c_d_Fairing = 1;
+  parameter SI.DimensionlessRatio mu_d_Fairing = 1;
   parameter SI.RotationalDampingConstant k_d_Fairing = 1 "Drag coefficient of torque on propeller body";
   parameter SI.Length thickness[3] = {0, 0.05, 0};
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
