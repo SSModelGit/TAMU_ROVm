@@ -45,7 +45,6 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES modelica_ext_func
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime joy
-  DEPENDS system_lib
 )
 
 ## Specify additional locations of header files
