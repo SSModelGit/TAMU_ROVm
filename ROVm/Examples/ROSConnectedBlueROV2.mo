@@ -2,7 +2,7 @@ within ROVm.Examples;
 
 model ROSConnectedBlueROV2
   extends ROVm.Templates.BlueROV2Template;
-  ModROS.Blocks.ROS_Sampler rOS_Sampler(nin = 6, nout = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-90, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  ROS_Bridge.Blocks.ROS_Sampler rOS_Sampler(nin = 6, nout = 6, samplePeriod = 0.05) annotation(Placement(visible = true, transformation(origin = {-90, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(rOS_Sampler.y[1], firstOrder1.u) annotation(Line(visible = true, origin = {-10.256, 170}, points = {{-68.743, 20}, {21.915, 20}, {21.915, -20}, {24.915, -20}}, color = {1, 37, 163}));
   connect(rOS_Sampler.y[2], firstOrder2.u) annotation(Line(visible = true, origin = {-71.5, 170}, points = {{-7.5, 20}, {1.5, 20}, {1.5, -20}, {4.5, -20}}, color = {1, 37, 163}));
