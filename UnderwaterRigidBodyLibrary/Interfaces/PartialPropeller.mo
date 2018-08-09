@@ -16,6 +16,7 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   parameter Modelica.SIunits.Mass k_m = 1 "Propeller shape coefficient, for representing fluid mass pushed through in some constant time t by propeller" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.SIunits.Length k_r = 1 "Propeller shape coefficient, for rotation-to-linear conversion in torque-to-force calculation" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Real eta = 0.85 "Efficiency coefficient of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
+  parameter Real w_shift = 0.001 "Coefficient of angular velocity in power balance to prevent divide-by-zero error" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
   // parameters for propeller body
   parameter Boolean animation = true;
@@ -38,11 +39,11 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   Modelica.Mechanics.Rotational.Sources.Torque loadTorque annotation(Placement(visible = true, transformation(origin = {43.23, 81.592}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(Placement(visible = true, transformation(origin = {75, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  thrust.force = k_m * abs(rotor.w) * (k_r * rotor.w - v_0 * n) * direction * n;
-  // thrust.force = zeros(3);
-  // thrust.force = -mounting1D.housing.t * (1 / k_r) * eta * direction * exp(-(Modelica.Math.Vectors.length(v_0)));
+  thrust.force = k_m * rotor.w * (k_r * rotor.w - v_0 * n) * direction * n;
   thrust.torque = zeros(3);
-  loadTorque.tau = -Modelica.Math.Vectors.length(thrust.force) * (v_0 * n) / (rotor.w + 0.001 * exp(-rotor.w ^ 2)) / eta;
+  // loadTorque.tau = k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction * smooth(2, noEvent(if rotor.w >= 0 then 1.0 else -1.0));
+  loadTorque.tau = -k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction;
+  // loadTorque.tau = -Modelica.Math.Vectors.length(thrust.force) * (v_0 * n) / (rotor.w + w_shift * exp(-rotor.w ^ 2)) / eta;
   // loadTorque.tau = 0;
   r_0 = frame_b.r_0;
   v_0 = der(r_0);
