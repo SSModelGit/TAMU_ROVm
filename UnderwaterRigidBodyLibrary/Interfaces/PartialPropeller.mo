@@ -15,6 +15,7 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   // parameter for propeller mount
   parameter Modelica.SIunits.Mass k_m = 1 "Propeller shape coefficient, for representing fluid mass pushed through in some constant time t by propeller" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.SIunits.Length k_r = 1 "Propeller shape coefficient, for rotation-to-linear conversion in torque-to-force calculation" annotation(Dialog(tab = "Propeller Body Specific"));
+  parameter Modelica.SIunits.AngularMomentum k_loss = 1 "Viscous drag loss coefficient for propeller blades" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Real eta = 0.85 "Efficiency coefficient of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Real w_shift = 0.001 "Coefficient of angular velocity in power balance to prevent divide-by-zero error" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
@@ -29,6 +30,7 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   parameter Modelica.SIunits.Area A_Propeller "Overall cross sectional area effective in drag of propeller body";
   parameter Modelica.SIunits.DimensionlessRatio mu_d_Propeller = 0 "Drag coefficient of the propeller body";
   parameter Modelica.SIunits.RotationalDampingConstant k_d_Propeller "Drag coefficient of torque on propeller body";
+  parameter Modelica.SIunits.Inertia I_dyn = 1e-7 "Maximum inertia possible for added mass effect of water";
   Modelica.Electrical.Analog.Basic.Resistor resistor(R = R) annotation(Placement(visible = true, transformation(origin = {-76.832, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Inductor inductor(L = L) annotation(Placement(visible = true, transformation(origin = {-45, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Rotor1D rotor(J = j_Propeller, n = n, exact = false) "Inertia of part of propeller interacting with the water" annotation(Placement(visible = true, transformation(origin = {38.207, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -38,12 +40,13 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   Modelica.Electrical.Analog.Basic.EMF propEMF(useSupport = true, k = k * direction) "EMF that drives the propeller" annotation(Placement(visible = true, transformation(origin = {-1.994, 35}, extent = {{-10, -10}, {10, 10}}, rotation = -630)));
   Modelica.Mechanics.Rotational.Sources.Torque loadTorque annotation(Placement(visible = true, transformation(origin = {43.23, 81.592}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(Placement(visible = true, transformation(origin = {75, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.SIunits.Torque addedMass;
 equation
-  thrust.force = k_m * rotor.w * (k_r * rotor.w - v_0 * n) * direction * n;
+  thrust.force = k_m * abs(rotor.w) * (k_r * rotor.w - v_0 * n) * direction * n;
   thrust.torque = zeros(3);
-  // loadTorque.tau = k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction * smooth(2, noEvent(if rotor.w >= 0 then 1.0 else -1.0));
-  loadTorque.tau = -k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction;
-  // loadTorque.tau = -Modelica.Math.Vectors.length(thrust.force) * (v_0 * n) / (rotor.w + w_shift * exp(-rotor.w ^ 2)) / eta;
+  // loadTorque.tau = -k_m * v_0 * n * (k_r * rotor.w - v_0 * n) * direction * sign(rotor.w) - k_loss * rotor.w;
+  addedMass = I_dyn * exp(-rotor.w ^ 2) * pre(der(rotor.w));
+  loadTorque.tau = (-k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction) - k_loss * rotor.w - addedMass;
   // loadTorque.tau = 0;
   r_0 = frame_b.r_0;
   v_0 = der(r_0);
