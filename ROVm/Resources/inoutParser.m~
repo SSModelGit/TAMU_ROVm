@@ -1,0 +1,49 @@
+for N = 1:17
+    datasetName = ""+N;
+    load(datasetName+"LOG.mat")
+    
+    in_time = (RCOU(:,2)-RCOU(1,2))/1e+6;
+    in_ch1 = (RCOU(:,3)-1500)/500;
+    in_ch2 = (RCOU(:,4)-1500)/500;
+    in_ch3 = (RCOU(:,5)-1500)/500;
+    in_ch4 = (RCOU(:,6)-1500)/500;
+    in_ch5 = (RCOU(:,7)-1500)/500;
+    in_ch6 = (RCOU(:,8)-1500)/500;
+    out_x = NKF1(:,7);
+    out_y = NKF1(:,6);
+    out_z = NKF1(:,8);
+    out_w = NKF1(:,5);
+    inout_mat = [in_time in_ch1 in_ch2 in_ch3 ...
+        in_ch4 in_ch5 in_ch6 ...
+        out_x out_y out_z out_w];
+    
+    lastIndex = 1;
+    cellIndex = 1;
+    inout_cell = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    for R = 2:length(inout_mat)
+        if (inout_mat(R,1) - inout_mat(R-1,1)) > 1
+            inout_cell{cellIndex, 1} = inout_mat(lastIndex:(R-1),:);
+            if cellIndex - 1 > 0
+                inout_cell{cellIndex,1}(:,1) = inout_cell{cellIndex,1}(:,1) ...
+                    - (inout_mat(lastIndex,1) - ... 
+                    inout_cell{cellIndex-1,1}(length(inout_cell{cellIndex-1,1}),1) ...
+                    - 0.5);
+            end
+            lastIndex = R;
+            cellIndex = cellIndex + 1;
+        end
+        if R == length(inout_mat)
+            inout_cell{cellIndex, 1} = inout_mat(lastIndex:(R),:);
+            if cellIndex - 1 > 0
+                inout_cell{cellIndex,1}(:,1) = inout_cell{cellIndex,1}(:,1) ...
+                    - (inout_mat(lastIndex,1) - ... 
+                    inout_cell{cellIndex-1,1}(length(inout_cell{cellIndex-1,1}),1) ...
+                    - 0.5);
+            end
+        end
+    end
+    
+    save("IN_OUT_LOG"+datasetName+".mat", "inout_mat")
+    for I = 1:cellIndex
+        save("IN_OUT_LOG"+datasetName+"_PARSED_"+I+".mat", "inout_cell{}")
+end
