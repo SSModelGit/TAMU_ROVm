@@ -6,16 +6,18 @@ import math
 from pyfmi import load_fmu
 
 fmu_loc = '/home/shashank/Documents/Gap Year Work/TAMU_ROVm/ROVm/Resources/FMU/'
-fmu_name = 'SimplifiedBlueROV2.fmu'
-# fmu_name = 'InputBasedBlueROV2.fmu'
-fmu_full_name = fmu_loc + fmu_name
-mmodel = load_fmu(fmu_full_name)
+fmu_sm_name = 'SimplifiedBlueROV2.fmu'
+fmu_fm_name = 'InputBasedBlueROV2.fmu'
+fmu_full_sm_name = fmu_loc + fmu_sm_name
+fmu_full_fm_name = fmu_loc + fmu_fm_name
+smmodel = load_fmu(fmu_full_sm_name)
+fmmodel = load_fmu(fmu_full_fm_name)
 
 # logInfo = {1:[1,4],2:[4,7],3:[5,4],4:[6,10],5:[15,17],6:[16,17]}
-logInfo = {1:[7,20],2:[13,7]}
+logInfo = {1:[16,1],}
 for i in range(1,len(logInfo)+1):
 	for j in range(1,logInfo[i][1]+1):
-		logNumber = [logInfo[i][0], j]
+		logNumber = [logInfo[i][0], 10]
 		exp_log_loc = '/home/shashank/Documents/Gap Year Work/TAMU_ROVm/ROVm/Resources/PARSED_DATA_SPLIT/LOG' + str(logNumber[0]) + '/'
 		exp_log_handle = 'IN_OUT_LOG' + str(logNumber[0]) + '_PARSED_' + str(logNumber[1]) + '.mat'
 		exp_log_name = exp_log_loc + exp_log_handle
@@ -40,35 +42,41 @@ for i in range(1,len(logInfo)+1):
 
 		try:
 			input_object = (['u[1]','u[2]','u[3]','u[4]','u[5]','u[6]'], u_traj)
-			mmodel.set('rovBody.mu_d',500)
-			res = mmodel.simulate(final_time = t_end, input=input_object)
-			v_x_sim = res['absoluteVelocity.v[1]']
-			v_y_sim = res['absoluteVelocity.v[2]']
-			v_z_sim = res['absoluteVelocity.v[3]']
-			t_sim = res['time']
+			smmodel.set('rovBody.mu_d',500)
+			res_sm = smmodel.simulate(final_time = t_end, input=input_object)
+			v_x_sm = res_sm['absoluteVelocity.v[1]']
+			v_y_sm = res_sm['absoluteVelocity.v[2]']
+			v_z_sm = res_sm['absoluteVelocity.v[3]']
+			t_sm = res_sm['time']
+
+			res_fm = fmmodel.simulate(final_time = t_end, input=input_object)
+			v_x_fm = res_fm['absoluteVelocity.v[1]']
+			v_y_fm = res_fm['absoluteVelocity.v[2]']
+			v_z_fm = res_fm['absoluteVelocity.v[3]']
+			t_fm = res_fm['time']
 
 			plt.figure(1)
 			plt.figure(figsize=(19.2,10.8), dpi=100)
 			plt.subplot(3,1,1)
-			plt.plot(t_sim, v_x_sim, t_data, v_x_data)
-			plt.legend(('Simulation', 'Experiment'))
-			plt.title("Velocity Comparison of Data Set: " + str(logNumber[0]) + "." + str(logNumber[1]) + " | FMU: " + fmu_name)
+			plt.plot(t_sm, v_x_sm, t_fm, v_x_fm)
+			plt.legend(('Simplified', 'Full'))
+			plt.title("Model Comparison on Data Set: " + str(logNumber[0]) + "." + str(logNumber[1]))
 			plt.ylabel("X-Axis (m/s)")
 			plt.grid(True)
 
 			plt.subplot(3,1,2)
-			plt.plot(t_sim, v_y_sim, t_data, v_y_data)
-			plt.legend(('Simulation', 'Experiment'))
+			plt.plot(t_sm, v_y_sm, t_fm, v_y_fm)
+			plt.legend(('Simplified', 'Full'))
 			plt.ylabel("Y-Axis (m/s)")
 			plt.grid(True)
 
 			plt.subplot(3,1,3)
-			plt.plot(t_sim, v_z_sim, t_data, v_z_data)
-			plt.legend(('Simulation', 'Experiment'))
+			plt.plot(t_sm, v_z_sm, t_fm, v_z_fm)
+			plt.legend(('Simplified', 'Full'))
 			plt.ylabel("Z-Axis (m/s)")
 			plt.xlabel("Time (s)")
 			plt.grid(True)
 
-			plt.show()
+			pylab.savefig(str(logNumber[0]) + '_' + str(logNumber[1]) + '.png', bbox_inches = 'tight')
 		except:
-			print("Error in simulating Log " + str(logNumber[0]) + "." + str(logNumber[1]) + " | FMU: " + fmu_name)
+			print("Error in simulating Log " + str(logNumber[0]) + "." + str(logNumber[1]))

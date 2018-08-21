@@ -6,13 +6,12 @@ import math
 from pyfmi import load_fmu
 
 fmu_loc = '/home/shashank/Documents/Gap Year Work/TAMU_ROVm/ROVm/Resources/FMU/'
-fmu_name = 'SimplifiedBlueROV2.fmu'
-# fmu_name = 'InputBasedBlueROV2.fmu'
+# fmu_name = 'SimplifiedBlueROV2.fmu'
+fmu_name = 'InputBasedBlueROV2.fmu'
 fmu_full_name = fmu_loc + fmu_name
 mmodel = load_fmu(fmu_full_name)
 
-# logInfo = {1:[1,4],2:[4,7],3:[5,4],4:[6,10],5:[15,17],6:[16,17]}
-logInfo = {1:[7,20],2:[13,7]}
+logInfo = {1:[1,4],2:[4,7],3:[5,4],4:[6,10],5:[15,17],6:[16,17]}
 for i in range(1,len(logInfo)+1):
 	for j in range(1,logInfo[i][1]+1):
 		logNumber = [logInfo[i][0], j]
@@ -40,7 +39,7 @@ for i in range(1,len(logInfo)+1):
 
 		try:
 			input_object = (['u[1]','u[2]','u[3]','u[4]','u[5]','u[6]'], u_traj)
-			mmodel.set('rovBody.mu_d',500)
+			# mmodel.set('rovBody.mu_d',500)
 			res = mmodel.simulate(final_time = t_end, input=input_object)
 			v_x_sim = res['absoluteVelocity.v[1]']
 			v_y_sim = res['absoluteVelocity.v[2]']
@@ -69,6 +68,6 @@ for i in range(1,len(logInfo)+1):
 			plt.xlabel("Time (s)")
 			plt.grid(True)
 
-			plt.show()
+			pylab.savefig(str(logNumber[0]) + '_' + str(logNumber[1]) + '.png', bbox_inches = 'tight')
 		except:
 			print("Error in simulating Log " + str(logNumber[0]) + "." + str(logNumber[1]) + " | FMU: " + fmu_name)

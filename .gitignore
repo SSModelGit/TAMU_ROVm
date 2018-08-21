@@ -1,2 +1,6 @@
 *.odt
-Photos/DataAnalysisProgressUpdate-8-18-18.png
+*.png
+*.pdf
+*.fmu
+*.mat
+*.log
