@@ -11,8 +11,7 @@ fmu_name = 'SimplifiedBlueROV2.fmu'
 fmu_full_name = fmu_loc + fmu_name
 mmodel = load_fmu(fmu_full_name)
 
-# logInfo = {1:[1,4],2:[4,7],3:[5,4],4:[6,10],5:[15,17],6:[16,17]}
-logInfo = {1:[7,20],2:[13,7]}
+logInfo = {1:[1,4],2:[4,7],3:[5,4],4:[6,10],5:[7,20],6:[13,7],7:[15,17],8:[16,17]}
 for i in range(1,len(logInfo)+1):
 	for j in range(1,logInfo[i][1]+1):
 		logNumber = [logInfo[i][0], j]
@@ -31,7 +30,7 @@ for i in range(1,len(logInfo)+1):
 		in_ch6 = parsed_exp[:,6]
 		u_traj = N.transpose(N.vstack((t,in_ch1, in_ch2, in_ch3, in_ch4, in_ch5, in_ch6)))
 
-		t_end_index = int(math.floor(parsed_exp.shape[0]-1))
+		t_end_index = int(math.floor(parsed_exp.shape[0]*3.0/4))
 		t_data = parsed_exp[0:t_end_index,0]
 		t_end = math.floor(t_data[t_data.shape[0]-1])
 		v_x_data = parsed_exp[0:t_end_index,7]

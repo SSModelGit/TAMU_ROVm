@@ -60,7 +60,7 @@ for i in range(1,len(logInfo)+1):
 			plt.subplot(3,1,1)
 			plt.plot(t_sm, v_x_sm, t_fm, v_x_fm)
 			plt.legend(('Simplified', 'Full'))
-			plt.title("Model Comparison on Data Set: " + str(logNumber[0]) + "." + str(logNumber[1]))
+			plt.title("Model Comparison | Testing the Simplified and Full Model on Data Set: " + str(logNumber[0]) + "." + str(logNumber[1]))
 			plt.ylabel("X-Axis (m/s)")
 			plt.grid(True)
 
@@ -77,6 +77,6 @@ for i in range(1,len(logInfo)+1):
 			plt.xlabel("Time (s)")
 			plt.grid(True)
 
-			pylab.savefig(str(logNumber[0]) + '_' + str(logNumber[1]) + '.png', bbox_inches = 'tight')
+			pylab.savefig("Comp_"+str(logNumber[0]) + '_' + str(logNumber[1]) + '.png', bbox_inches = 'tight')
 		except:
 			print("Error in simulating Log " + str(logNumber[0]) + "." + str(logNumber[1]))
