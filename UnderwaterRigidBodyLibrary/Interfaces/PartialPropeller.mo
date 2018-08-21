@@ -11,7 +11,7 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   parameter Modelica.SIunits.ElectricalTorqueConstant k(start = 1) = 0.05 "Transformation coefficient" annotation(Dialog(tab = "Motor Specific"));
   parameter Modelica.SIunits.Resistance R(start = 1) = 0.18 "Resistance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
   parameter Modelica.SIunits.Inductance L(start = 1) = 0.077 "Inductance of propeller motor" annotation(Dialog(tab = "Motor Specific"));
-  parameter Real direction = 1 "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
+  parameter Real direction_m = 1 "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
   // parameter for propeller mount
   parameter Modelica.SIunits.Mass k_m = 1 "Propeller shape coefficient, for representing fluid mass pushed through in some constant time t by propeller" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.SIunits.Length k_r = 1 "Propeller shape coefficient, for rotation-to-linear conversion in torque-to-force calculation" annotation(Dialog(tab = "Propeller Body Specific"));
@@ -19,6 +19,7 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   parameter Real eta = 0.85 "Efficiency coefficient of the propeller, to translate torque to force" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Real w_shift = 0.001 "Coefficient of angular velocity in power balance to prevent divide-by-zero error" annotation(Dialog(tab = "Propeller Body Specific"));
   parameter Modelica.Mechanics.MultiBody.Types.Axis n = {1, 0, 0} "Axis of rotation = axis of support torque (resolved in frame_a)" annotation(Evaluate = true, Dialog(tab = "Propeller Body Specific"));
+  parameter Real direction_b = direction_m "Direction of motor - negative if force moves in direction opposite to torque axis" annotation(Dialog(tab = "Motor Specific"));
   // parameters for propeller body
   parameter Boolean animation = true;
   parameter Boolean enforceStates = false "= true, if absolute variables of body object shall be used as states (StateSelect.always)" annotation(Evaluate = true, Dialog(tab = "Advanced"));
@@ -37,16 +38,16 @@ partial model PartialPropeller "Basic interface for underwater propulsion"
   Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1D(n = n, phi0 = 0) annotation(Placement(visible = true, transformation(origin = {-40, -0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForceAndTorque thrust(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_resolve) annotation(Placement(visible = true, transformation(origin = {20, -27.73}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   UnderwaterRigidBodyLibrary.Parts.BasicBody propeller(mu_d = mu_d_Propeller, A = A_Propeller, density = d_Propeller, r_CM = r_CM_Propeller, m = m_Propeller, I_11 = 0.5, I_22 = 0.5, I_33 = 0.5, k_d = k_d_Propeller) "Mass of the propeller affected by torque, colocated with inertia" annotation(Placement(visible = true, transformation(origin = {-55, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.EMF propEMF(useSupport = true, k = k * direction) "EMF that drives the propeller" annotation(Placement(visible = true, transformation(origin = {-1.994, 35}, extent = {{-10, -10}, {10, 10}}, rotation = -630)));
+  Modelica.Electrical.Analog.Basic.EMF propEMF(useSupport = true, k = k * direction_m) "EMF that drives the propeller" annotation(Placement(visible = true, transformation(origin = {-1.994, 35}, extent = {{-10, -10}, {10, 10}}, rotation = -630)));
   Modelica.Mechanics.Rotational.Sources.Torque loadTorque annotation(Placement(visible = true, transformation(origin = {43.23, 81.592}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(Placement(visible = true, transformation(origin = {75, 47.849}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.SIunits.Torque addedMass;
 equation
-  thrust.force = k_m * abs(rotor.w) * (k_r * rotor.w - v_0 * n) * direction * n;
+  thrust.force = k_m * abs(rotor.w) * (k_r * direction_b * rotor.w - v_0 * n) * n;
   thrust.torque = zeros(3);
   // loadTorque.tau = -k_m * v_0 * n * (k_r * rotor.w - v_0 * n) * direction * sign(rotor.w) - k_loss * rotor.w;
   addedMass = I_dyn * exp(-rotor.w ^ 2) * pre(der(rotor.w));
-  loadTorque.tau = (-k_m * (v_0 * n) * (k_r * rotor.w - v_0 * n) * direction) / eta - k_loss * rotor.w - addedMass;
+  loadTorque.tau = (-k_m * (v_0 * n) * (k_r * direction_b * rotor.w - v_0 * n) / eta) - k_loss * rotor.w - addedMass;
   // loadTorque.tau = 0;
   r_0 = frame_b.r_0;
   v_0 = der(r_0);

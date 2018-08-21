@@ -1,4 +1,7 @@
+ConstantMotionProfiles
 FullBlueROV2Example
 ROSConnectedBlueROV2
 DataBasedBlueROV2
-ConstantMotionProfiles
+DataBasedSimplifiedBlueROV2
+SimplifiedBlueROV2
+InputBasedBlueROV2
