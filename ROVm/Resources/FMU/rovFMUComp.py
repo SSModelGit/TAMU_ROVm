@@ -33,7 +33,7 @@ for i in range(1,len(logInfo)+1):
 		in_ch6 = parsed_exp[:,6]
 		u_traj = N.transpose(N.vstack((t,in_ch1, in_ch2, in_ch3, in_ch4, in_ch5, in_ch6)))
 
-		t_end_index = int(math.floor(parsed_exp.shape[0]-1))
+		t_end_index = int(math.floor(parsed_exp.shape[0]*3.0/4))
 		t_data = parsed_exp[0:t_end_index,0]
 		t_end = math.floor(t_data[t_data.shape[0]-1])
 		v_x_data = parsed_exp[0:t_end_index,7]
