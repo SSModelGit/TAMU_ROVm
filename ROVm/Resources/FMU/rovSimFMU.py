@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import pylab
 import numpy as N
 import scipy.io as sio
 import math
