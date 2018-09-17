@@ -6,7 +6,9 @@
 *.log
 *.jpg
 *.bag
+*.sh
 Photos/
 BlueROV2/
 Modelica '18 Paper/
 Hiring Related/
+ROVm/Bin/
